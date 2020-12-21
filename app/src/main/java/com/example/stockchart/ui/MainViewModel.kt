@@ -9,6 +9,7 @@ import com.example.stockchart.data.model.Stock
 import com.example.stockchart.data.repository.StockRepository
 import com.example.stockchart.data.utlis.ResultOf
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -26,6 +27,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return _stockdata
         }
 
+    @ExperimentalCoroutinesApi
     private fun fetchStockDetails() {
         viewModelScope.launch(Dispatchers.IO) {
             stockRepo.getData().collect{ result ->
