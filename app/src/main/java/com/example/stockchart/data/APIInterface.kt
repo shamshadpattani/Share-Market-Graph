@@ -7,10 +7,10 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface APIInterface {
-    @GET("/mf/119172")
+    @GET("/api/v3/datasets/AMFI/119172.json?api_key=-ZNfTunpsS65kY8rNJNa")
     suspend fun getData(): Response<Stock>
 
     companion object {
-        const val FOODIUM_API_URL = "https://api.mfapi.in/"
+        const val FOODIUM_API_URL = "https://www.quandl.com/"
     }
 }

@@ -1,20 +1,29 @@
 package com.example.stockchart.data.model
 
 data class Stock(
-    val values: List<Value>,
-    val details: Detail,
-    val status: String
+    val dataset: Dataset
 )
 
-data class Value(
-    val date: String,
-    val nav: String
-)
-
-data class Detail(
-    val fund_house: String,
-    val scheme_category: String,
-    val scheme_code: Int,
-    val scheme_name: String,
-    val scheme_type: String
+data class Dataset(
+    val collapse: Any,
+    val column_index: Any,
+    val column_names: List<String>,
+    val `data`: List<List<Any>>,
+    val database_code: String,
+    val database_id: Int,
+    val dataset_code: String,
+    val description: String,
+    val end_date: String,
+    val frequency: String,
+    val id: Int,
+    val limit: Any,
+    val name: String,
+    val newest_available_date: String,
+    val oldest_available_date: String,
+    val order: Any,
+    val premium: Boolean,
+    val refreshed_at: String,
+    val start_date: String,
+    val transform: Any,
+    val type: String
 )
