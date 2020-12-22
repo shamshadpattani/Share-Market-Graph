@@ -9,7 +9,6 @@ import com.example.stockchart.data.model.Stock
 import com.example.stockchart.data.repository.StockRepository
 import com.example.stockchart.data.utlis.ResultOf
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -20,6 +19,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
 
+    val date = MutableLiveData<List<String>>()
+    val price = MutableLiveData<List<Double>>()
+
+    private var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
+
+    fun setData(data: List<List<Any>>) {
+        var _price:MutableList<Double> = mutableListOf()
+        var _date:MutableList<String> = mutableListOf()
+        data.map { values->
+            _date.add(values[0] as String)
+            _price.add(values[1] as Double)
+        }
+        date.postValue(_date.reversed())
+        price.postValue(_price.reversed())
+        stockvalues.value= Pair(_date.reversed(),_price.reversed())
+    }
+
     private val _stockdata = MutableLiveData<Stock>()
     val stockdata: LiveData<Stock>
         get() {
@@ -27,7 +43,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return _stockdata
         }
 
-    @ExperimentalCoroutinesApi
     private fun fetchStockDetails() {
         viewModelScope.launch(Dispatchers.IO) {
             stockRepo.getData().collect{ result ->

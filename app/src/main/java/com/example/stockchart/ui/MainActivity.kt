@@ -22,34 +22,33 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         init()
+        observer()
     }
 
-    private fun init() {
+    private fun observer() {
         mainViewModel.stockdata.observe(this, Observer { stock->
-                showTitles(stock.dataset.name)
-              setData(stock.dataset.data)
+            showTitles(stock.dataset.name)
+            setData(stock.dataset.data)
         })
     }
 
+    private fun init() {
+
+    }
+
     private fun setData(data: List<List<Any>>) {
-     var stockValues:Double
-     var price:MutableList<Double> = mutableListOf()
-        data.map { values->
-            price.add(values[1] as Double)
-        }
-        println(price)
-        setmap(price)
+      mainViewModel.setData(data)
     }
 
 
-    private fun setmap(dataset: MutableList<Double>) {
-
+    private fun setmap(dataset:List<Double>, date:List<String>) {
         val aaChartModel : AAChartModel = AAChartModel()
         .chartType(AAChartType.Area)
                 .title("title")
                 .subtitle("subtitle")
                 .backgroundColor("#4b2b7f")
-                .dataLabelsEnabled(true)
+                .categories(date.toTypedArray())
+                .dataLabelsEnabled(false)
                 .series(arrayOf(
                         AASeriesElement()
                                 .name("aa")
