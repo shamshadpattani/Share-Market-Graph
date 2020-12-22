@@ -22,7 +22,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val date = MutableLiveData<List<String>>()
     val price = MutableLiveData<List<Double>>()
 
-    private var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
+    var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
 
     fun setData(data: List<List<Any>>) {
         var _price:MutableList<Double> = mutableListOf()

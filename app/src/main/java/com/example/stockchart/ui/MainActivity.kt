@@ -30,6 +30,9 @@ class MainActivity : AppCompatActivity() {
             showTitles(stock.dataset.name)
             setData(stock.dataset.data)
         })
+        mainViewModel.stockvalues.observe(this, Observer { values->
+            setmap(values.second,values.first)
+        })
     }
 
     private fun init() {
@@ -43,10 +46,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setmap(dataset:List<Double>, date:List<String>) {
         val aaChartModel : AAChartModel = AAChartModel()
-        .chartType(AAChartType.Area)
+        .chartType(AAChartType.Line)
                 .title("title")
                 .subtitle("subtitle")
-                .backgroundColor("#4b2b7f")
+                .backgroundColor("#00000")
                 .categories(date.toTypedArray())
                 .dataLabelsEnabled(false)
                 .series(arrayOf(
