@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        init()
         observer()
     }
 
@@ -33,10 +32,6 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.stockvalues.observe(this, Observer { values->
             setmap(values.second,values.first)
         })
-    }
-
-    private fun init() {
-
     }
 
     private fun setData(data: List<List<Any>>) {
