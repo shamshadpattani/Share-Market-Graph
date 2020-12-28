@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Chart</string>
+    <string name="to_day_text_head">To Day</string>
 </resources>
