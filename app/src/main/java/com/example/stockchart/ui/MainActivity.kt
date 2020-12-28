@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         })
         mainViewModel.stockvalues.observe(this, Observer { values ->
             setmap(values.second, values.first)
-            binding.latestPrice.text = "LAST UPDATE:${values.first.last()} -  ₹${values.second.last()}"
-            binding.latestPrice.setTextColor(ContextCompat.getColor(this, R.color.negative_color))
+            /*binding.latestPrice.text = "LAST UPDATE:${values.first.last()} -  ₹${values.second.last()}"
+            binding.latestPrice.setTextColor(ContextCompat.getColor(this, R.color.negative_color))*/
         })
     }
 
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     private fun setmap(dataset: List<Double>, date: List<String>) {
             aaChartModel.chartType(AAChartType.Areaspline)
             .backgroundColor("#1c232e")
-            .xAxisTickInterval(100)
+            .xAxisTickInterval(550)
             .borderRadius(0f)
             .yAxisGridLineWidth(0.001f)
             .gradientColorEnable(false)
@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             .animationType(AAChartAnimationType.EaseInSine)
             .series(
                     arrayOf(AASeriesElement()
-                            .name("aa")
                             .data(dataset.toTypedArray())
                             .color("#85c785")
                             .fillOpacity(0.12f)
@@ -71,7 +70,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showTitles(data: Dataset) {
-        binding.mainTitle.text = data.name
         aaChartModel.title(data.name)
                 .titleStyle(AAStyle().color("#810000").fontWeight(AAChartFontWeightType.Bold))
                 .subtitle(data.description)
