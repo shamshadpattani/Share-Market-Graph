@@ -165,6 +165,7 @@
                 android:textColor="@color/dark_green_color"
                 android:textSize="12sp"
                 android:typeface="sans"
+                app:layout_constraintBottom_toBottomOf="@+id/yesterday_date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/t1"
                 app:layout_constraintTop_toBottomOf="@+id/percentPrview" />
@@ -172,7 +173,8 @@
                 android:id="@+id/yesterday_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginTop="4dp"
                 android:text="20 jan 2020"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
@@ -184,6 +186,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="$100.60"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
                 android:textColor="@color/light_green_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/yesterday_date" />
@@ -250,6 +254,7 @@
                 android:textColor="@color/dark_green_color"
                 android:textSize="12sp"
                 android:typeface="sans"
+                app:layout_constraintBottom_toBottomOf="@+id/today_date"
                 app:layout_constraintEnd_toEndOf="@+id/percentPrviewToday"
                 app:layout_constraintStart_toStartOf="@+id/percentPrviewToday"
                 app:layout_constraintTop_toBottomOf="@+id/percentPrviewToday" />
@@ -260,6 +265,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="20 jan 2020"
+                android:layout_marginTop="4dp"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/t2" />
@@ -269,6 +275,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="$100.60"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:textColor="@color/light_green_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/today_date" />

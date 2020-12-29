@@ -43,8 +43,6 @@ class MainActivity : AppCompatActivity() {
         })
         mainViewModel.stockvalues.observe(this, Observer { values ->
             setmap(values.second, values.first)
-            /*binding.latestPrice.text = "LAST UPDATE:${values.first.last()} -  ₹${values.second.last()}"
-            binding.latestPrice.setTextColor(ContextCompat.getColor(this, R.color.negative_color))*/
         })
     }
 
