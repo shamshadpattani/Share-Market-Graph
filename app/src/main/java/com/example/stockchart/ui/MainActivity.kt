@@ -3,6 +3,7 @@ package com.example.stockchart.ui
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
     private val aaChartModel: AAChartModel = AAChartModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -25,6 +27,12 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         observer()
+        setAdjustScreen();
+    }
+
+    private fun setAdjustScreen() {
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     @SuppressLint("SetTextI18n")
