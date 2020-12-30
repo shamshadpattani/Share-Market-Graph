@@ -80,24 +80,29 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setvalues(text: String?, dat: List<List<Any>>) {
-        if(text.toString()=="5D"){
-            setData(dat,5)
-        }else if(text.toString()=="1M"){
-            setData(dat,31)
-        }else if(text.toString()=="3M"){
-            setData(dat,90)
-        }else if(text.toString()=="1Y"){
-            setData(dat,360)
-        }else if(text.toString()=="2Y"){
-            setData(dat,360*2)
-        }else if(text.toString()=="3Y"){
-            setData(dat,360*3)
-        }else{
-            setData(dat,36000)
+        when {
+            text.toString()=="5D" -> {
+                setData(dat,5)
+            }
+            text.toString()=="1M" -> {
+                setData(dat,31)
+            }
+            text.toString()=="3M" -> {
+                setData(dat,90)
+            }
+            text.toString()=="1Y" -> {
+                setData(dat,360)
+            }
+            text.toString()=="2Y" -> {
+                setData(dat,360*2)
+            }
+            text.toString()=="3Y" -> {
+                setData(dat,360*3)
+            }
+            else -> {
+                setData(dat,36000)
+            }
         }
     }
 
-    private fun setgraphValues(i: Int) {
-
-    }
 }
