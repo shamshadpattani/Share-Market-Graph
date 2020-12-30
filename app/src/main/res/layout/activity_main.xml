@@ -31,40 +31,41 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/toggleGroup6"
+        android:id="@+id/selectorGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:focusable="true"
-        android:weightSum="5"
+        android:weightSum="7"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        app:singleSelection="true"
         app:layout_constraintEnd_toEndOf="@+id/materialCardView"
         app:layout_constraintStart_toStartOf="@+id/materialCardView"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
-        app:singleSelection="true">
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:id="@+id/day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5D"
             android:layout_weight="1"
-            android:textColor="@color/negative_color"
             app:rippleColor="@color/teal_700"
+            android:textColor="@color/negative_color"
+            style="?attr/materialButtonOutlinedStyle"
             app:strokeColor="@color/light_black_color" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/oneMonthBtn"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1M"
+            app:rippleColor="@color/teal_700"
             android:layout_weight="1"
             android:textColor="@color/negative_color"
-            app:rippleColor="@color/teal_700"
             app:strokeColor="@color/light_black_color" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/threeMonthBtn"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,6 +76,7 @@
             app:strokeColor="@color/light_black_color" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/oneYearBtn"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,9 +85,30 @@
             android:textColor="@color/negative_color"
             app:rippleColor="@color/teal_700"
             app:strokeColor="@color/light_black_color" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/twoYearBtn"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2Y"
+            android:layout_weight="1"
+            android:textColor="@color/negative_color"
+            app:rippleColor="@color/teal_700"
+            app:strokeColor="@color/light_black_color" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/threeYearBtn"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3Y"
+            android:layout_weight="1"
+            android:textColor="@color/negative_color"
+            app:rippleColor="@color/teal_700"
+            app:strokeColor="@color/light_black_color" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:id="@+id/maxBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="MAX"
@@ -95,6 +118,9 @@
             app:strokeColor="@color/light_black_color" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
+
+
+
     <View
         android:id="@+id/view"
         android:layout_width="2dp"
@@ -102,7 +128,7 @@
         android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toggleGroup6" />
+        app:layout_constraintTop_toBottomOf="@+id/selectorGroup" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView2"
@@ -115,7 +141,7 @@
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toStartOf="@+id/view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toggleGroup6">
+        app:layout_constraintTop_toBottomOf="@+id/selectorGroup">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -204,7 +230,7 @@
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/view"
-        app:layout_constraintTop_toBottomOf="@+id/toggleGroup6">
+        app:layout_constraintTop_toBottomOf="@+id/selectorGroup">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
