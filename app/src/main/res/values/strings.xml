@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Chart</string>
+    <string name="to_day_text_head">To Day</string>
+    <string name="yesterday_text_head">Yesterday</string>
+    <string name="enter_your_amount">Enter your amount</string>
+    <string name="enter_something">Enter Amount</string>
 </resources>

@@ -15,6 +15,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val stockRepo: StockRepository = StockRepository(getApplication())
@@ -27,14 +28,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
 
-    fun setData(data: List<List<Any>>) {
+    fun setData(data: List<List<Any>>, i: Int) {
         var _price:MutableList<Double> = mutableListOf()
         var _date:MutableList<String> = mutableListOf()
+        var count=0
         data.map { values->
-            _date.add(values[0] as String)
-            _price.add(values[1] as Double)
+            count += 1
+            if(count <= i){
+                _date.add(values[0] as String)
+                _price.add(values[1] as Double)
+            }
         }
-
         date.postValue(dateConversion(_date.reversed()))
         price.postValue(_price.reversed())
         stockvalues.value= Pair(dateConversion(_date.reversed()),_price.reversed())
@@ -54,11 +58,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
        return formattedDate
     }
 
-    private val _stockdata = MutableLiveData<Stock>()
-    val stockdata: LiveData<Stock>
+    private val _fundDetails = MutableLiveData<Stock>()
+    val fundDetails: LiveData<Stock>
         get() {
-            _stockdata.value ?: fetchStockDetails()
-            return _stockdata
+            _fundDetails.value ?: fetchStockDetails()
+            return _fundDetails
         }
 
     private fun fetchStockDetails() {
@@ -66,7 +70,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             stockRepo.getData().collect{ result ->
                 when(result) {
                     is ResultOf.Success -> {
-                        _stockdata.postValue(result.value!!)
+                        _fundDetails.postValue(result.value!!)
                     }
                     is ResultOf.Loading -> _dataLoading.postValue(true)
                     is ResultOf.Error -> _dataLoading.postValue(false)
@@ -74,4 +78,31 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun setvalues(text: String?, dat: List<List<Any>>) {
+        when {
+            text.toString()=="5D" -> {
+                setData(dat,5)
+            }
+            text.toString()=="1M" -> {
+                setData(dat,31)
+            }
+            text.toString()=="3M" -> {
+                setData(dat,90)
+            }
+            text.toString()=="1Y" -> {
+                setData(dat,360)
+            }
+            text.toString()=="2Y" -> {
+                setData(dat,360*2)
+            }
+            text.toString()=="3Y" -> {
+                setData(dat,360*3)
+            }
+            else -> {
+                setData(dat,36000)
+            }
+        }
+    }
+
 }
