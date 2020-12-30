@@ -56,20 +56,23 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun observer() {
-        mainViewModel.fundDetails.observe(this, Observer { stock ->
+        mainViewModel.fundDetails.observe(this, { stock ->
             showTitles(stock.dataset)
             dat=stock.dataset.data
-            setData(dat)
+            mainViewModel.setData(dat,5)
         })
-        mainViewModel.stockvalues.observe(this, Observer { values ->
+        mainViewModel.stockvalues.observe(this, { values ->
             setmap(values.second, values.first)
         })
-    }
+        mainViewModel.date.observe(this, {dt->
+            today_date.text=dt.last()
 
-    private fun setData(data: List<List<Any>>) {
-        mainViewModel.setData(data,5)
-    }
+        })
+        mainViewModel.price.observe(this, {pr->
+            today_price.text=pr.last().toString()
 
+        })
+    }
 
     private fun setmap(dataset: List<Double>, date: List<String>) {
             aaChartModel.chartType(AAChartType.Areaspline)

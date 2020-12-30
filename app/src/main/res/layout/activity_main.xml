@@ -134,7 +134,7 @@
         android:id="@+id/materialCardView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         app:cardBackgroundColor="@color/light_black_color"
@@ -147,6 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_marginEnd="4dp"
             android:layout_marginStart="8dp"
             android:orientation="vertical">
 
@@ -164,6 +165,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:typeface="sans"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -173,14 +175,14 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:text="+2.3%"
-                android:layout_marginTop="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/light_green_color"
                 android:textSize="16sp"
+                android:layout_marginStart="12dp"
                 android:typeface="sans"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/t1"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/t1"
+                app:layout_constraintTop_toTopOf="@+id/yesterday_date" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/priceIncrementyesterday"
@@ -191,16 +193,17 @@
                 android:textColor="@color/dark_green_color"
                 android:textSize="12sp"
                 android:typeface="sans"
-                app:layout_constraintBottom_toBottomOf="@+id/yesterday_date"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/t1"
+                app:layout_constraintBottom_toBottomOf="@+id/priceYesterday"
+                app:layout_constraintEnd_toEndOf="@+id/percentPrview"
+                app:layout_constraintStart_toStartOf="@+id/percentPrview"
                 app:layout_constraintTop_toBottomOf="@+id/percentPrview" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/yesterday_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-light"
-                android:layout_marginTop="4dp"
                 android:text="20 jan 2020"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
@@ -210,11 +213,12 @@
                 android:id="@+id/priceYesterday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="$100.60"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
                 android:textColor="@color/light_green_color"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/yesterday_date" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -228,7 +232,7 @@
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="@color/light_black_color"
         app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/selectorGroup"
         app:layout_constraintStart_toEndOf="@id/view"
         app:layout_constraintTop_toBottomOf="@+id/selectorGroup">
 
@@ -236,6 +240,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_marginEnd="4dp"
             android:layout_marginStart="8dp"
             android:orientation="vertical">
 
@@ -253,14 +258,14 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:typeface="sans"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/percentPrviewToday"
+                android:id="@+id/today_percentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-black"
                 android:text="+2.3%"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -268,11 +273,11 @@
                 android:textSize="16sp"
                 android:typeface="sans"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/t2"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/t2"
+                app:layout_constraintTop_toTopOf="@+id/today_date" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/priceIncrement"
+                android:id="@+id/today_price_incr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="₹1.78"
@@ -281,29 +286,31 @@
                 android:textSize="12sp"
                 android:typeface="sans"
                 app:layout_constraintBottom_toBottomOf="@+id/today_date"
-                app:layout_constraintEnd_toEndOf="@+id/percentPrviewToday"
-                app:layout_constraintStart_toStartOf="@+id/percentPrviewToday"
-                app:layout_constraintTop_toBottomOf="@+id/percentPrviewToday" />
+                app:layout_constraintEnd_toEndOf="@+id/today_percentage"
+                app:layout_constraintStart_toStartOf="@+id/today_percentage"
+                app:layout_constraintTop_toBottomOf="@+id/today_price" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/today_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="20 jan 2020"
-                android:layout_marginTop="4dp"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/t2" />
+
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView2"
+                android:id="@+id/today_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="$100.60"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
                 android:textColor="@color/light_green_color"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/today_date" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -315,10 +322,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
+        android:visibility="invisible"
         android:layout_marginEnd="12dp"
         app:cardBackgroundColor="@color/light_black_color"
         app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/todayCard"
         app:layout_constraintStart_toEndOf="@+id/view"
         app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
 
@@ -377,9 +385,9 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:hint="@string/enter_something"
                 app:hintTextColor="@color/light_grey_color"
-                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/Lumpsum_text"
                 app:layout_constraintStart_toStartOf="@+id/appCompatTextView"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
@@ -396,6 +404,8 @@
                 android:id="@+id/total_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:lineSpacingExtra="10sp"
@@ -403,9 +413,7 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_marginEnd="8dp"
                 android:typeface="sans"
-                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/switchButton"
                 app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
@@ -416,6 +424,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="12dp"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:lineSpacingExtra="10sp"
@@ -424,7 +433,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:typeface="sans"
-                android:layout_marginBottom="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/total_text"
