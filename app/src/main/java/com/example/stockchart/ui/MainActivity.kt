@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.stockchart.R
 import com.example.stockchart.data.model.Dataset
 import com.example.stockchart.databinding.ActivityMainBinding
 import com.github.aachartmodel.aainfographics.aachartcreator.*
@@ -23,10 +25,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        binding.stock = mainViewModel
+        binding.lifecycleOwner = this
         observer()
         setAdjustScreen();
         inits()
@@ -37,7 +39,6 @@ class MainActivity : AppCompatActivity() {
 
             val listenerButton: MaterialButton = group.findViewById(checkedId)
             val checkedButton: MaterialButton? = group.findViewById(group.checkedButtonId)
-
             if (checkedButton != null) {
                 if (!isChecked) {
                     Toast.makeText(this, "cheked${checkedButton.text}", Toast.LENGTH_SHORT).show()
