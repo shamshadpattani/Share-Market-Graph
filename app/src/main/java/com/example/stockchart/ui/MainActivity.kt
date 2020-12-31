@@ -1,7 +1,6 @@
 package com.example.stockchart.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -69,13 +68,22 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.stockvalues.observe(this, { values ->
             setmap(values.second, values.first)
         })
-        mainViewModel.percentIncVal.observe(this, Observer { py->
+        mainViewModel.percentIncValYest.observe(this, Observer { py->
             if(py<0.0){
                 percentYstrday.setTextColor(ContextCompat.getColor(this,R.color.negative_color))
                 priceIncYday.setTextColor(ContextCompat.getColor(this,R.color.negative_color))
             }else{
                 percentYstrday.setTextColor(ContextCompat.getColor(this,R.color.light_green_color))
                 priceIncYday.setTextColor(ContextCompat.getColor(this,R.color.dark_green_color))
+            }
+        })
+        mainViewModel.todayIncVal.observe(this, Observer { ty->
+            if(ty<0.0){
+                today_price_incr.setTextColor(ContextCompat.getColor(this,R.color.negative_color))
+                today_percentage.setTextColor(ContextCompat.getColor(this,R.color.negative_color))
+            }else{
+                today_percentage.setTextColor(ContextCompat.getColor(this,R.color.light_green_color))
+                today_price_incr.setTextColor(ContextCompat.getColor(this,R.color.dark_green_color))
             }
         })
     }
