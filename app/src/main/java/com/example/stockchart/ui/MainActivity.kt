@@ -65,14 +65,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.stockvalues.observe(this, { values ->
             setmap(values.second, values.first)
         })
-        mainViewModel.date.observe(this, {dt->
-            today_date.text=dt.last()
 
-        })
-        mainViewModel.price.observe(this, {pr->
-            today_price.text=pr.last().toString()
-
-        })
     }
 
     private fun setmap(dataset: List<Double>, date: List<String>) {

@@ -32,6 +32,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val priceIncYesterday : MutableLiveData<String> = MutableLiveData()
     val percentYest : MutableLiveData<String> = MutableLiveData()
 
+    val todaydate : MutableLiveData<String> = MutableLiveData()
+    val todayprice : MutableLiveData<String> = MutableLiveData()
+    val todayPriceIncr : MutableLiveData<String> = MutableLiveData()
+    val todayPercentage : MutableLiveData<String> = MutableLiveData()
+
     var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
 
     fun setData(data: List<List<Any>>, i: Int) {
@@ -47,10 +52,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
         date.postValue(dateConversion(_date.reversed()))
         price.postValue(_price.reversed())
+
         yesterdayDate.value=dateConversionSrting(_date[1])!!
         yesterdayPrice.value="₹${_price[1]}"
         priceIncYesterday.value="₹${_price[1].minus(_price[2]).toFloat()}"
         percentYest.value="%${String.format("%.3f",((_price[1].minus(_price[2]).toFloat()).div(_price[2])).times(100))}"
+
+        todaydate.value = dateConversionSrting(_date[0])!!
+        todayprice.value="₹${_price[0]}"
+        todayPriceIncr.value="₹${_price[0].minus(_price[1]).toFloat()}"
+        todayPercentage.value="%${String.format("%.3f",((_price[0].minus(_price[1]).toFloat()).div(_price[1])).times(100))}"
+
         stockvalues.value= Pair(dateConversion(_date.reversed()),_price.reversed())
     }
 
