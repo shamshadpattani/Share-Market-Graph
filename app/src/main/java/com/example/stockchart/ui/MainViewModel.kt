@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.roundToLong
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -31,6 +30,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val yesterdayPrice : MutableLiveData<String> = MutableLiveData()
     val priceIncYesterday : MutableLiveData<String> = MutableLiveData()
     val percentYest : MutableLiveData<String> = MutableLiveData()
+    val percentIncVal : MutableLiveData<Float> = MutableLiveData()
 
     val todaydate : MutableLiveData<String> = MutableLiveData()
     val todayprice : MutableLiveData<String> = MutableLiveData()
@@ -57,6 +57,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         yesterdayPrice.value="₹${_price[1]}"
         priceIncYesterday.value="₹${_price[1].minus(_price[2]).toFloat()}"
         percentYest.value="%${String.format("%.3f",((_price[1].minus(_price[2]).toFloat()).div(_price[2])).times(100))}"
+        percentIncVal.value=_price[1].minus(_price[2]).toFloat()
 
         todaydate.value = dateConversionSrting(_date[0])!!
         todayprice.value="₹${_price[0]}"

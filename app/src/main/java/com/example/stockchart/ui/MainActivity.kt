@@ -1,10 +1,12 @@
 package com.example.stockchart.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,10 +33,10 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         observer()
         setAdjustScreen();
-        inits()
+        init()
     }
 
-    private fun inits() {
+    private fun init() {
         selectorGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
 
             val listenerButton: MaterialButton = group.findViewById(checkedId)
@@ -42,6 +44,8 @@ class MainActivity : AppCompatActivity() {
             if (checkedButton != null) {
                 if (!isChecked) {
                     Toast.makeText(this, "cheked${checkedButton.text}", Toast.LENGTH_SHORT).show()
+                    mainViewModel.setvalues(checkedButton.text.toString(),dat)
+                }else{
                     mainViewModel.setvalues(checkedButton.text.toString(),dat)
                 }
             }
@@ -65,7 +69,15 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.stockvalues.observe(this, { values ->
             setmap(values.second, values.first)
         })
-
+        mainViewModel.percentIncVal.observe(this, Observer { py->
+            if(py<0.0){
+                percentYstrday.setTextColor(ContextCompat.getColor(this,R.color.negative_color))
+                priceIncYday.setTextColor(ContextCompat.getColor(this,R.color.negative_color))
+            }else{
+                percentYstrday.setTextColor(ContextCompat.getColor(this,R.color.light_green_color))
+                priceIncYday.setTextColor(ContextCompat.getColor(this,R.color.dark_green_color))
+            }
+        })
     }
 
     private fun setmap(dataset: List<Double>, date: List<String>) {
