@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToLong
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -25,6 +26,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val date = MutableLiveData<List<String>>()
     val price = MutableLiveData<List<Double>>()
+
+    val yesterdayDate : MutableLiveData<String> = MutableLiveData()
+    val yesterdayPrice : MutableLiveData<String> = MutableLiveData()
+    val priceIncYesterday : MutableLiveData<String> = MutableLiveData()
+    val percentYest : MutableLiveData<String> = MutableLiveData()
+
+    val todaydate : MutableLiveData<String> = MutableLiveData()
+    val todayprice : MutableLiveData<String> = MutableLiveData()
+    val todayPriceIncr : MutableLiveData<String> = MutableLiveData()
+    val todayPercentage : MutableLiveData<String> = MutableLiveData()
 
     var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
 
@@ -41,6 +52,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
         date.postValue(dateConversion(_date.reversed()))
         price.postValue(_price.reversed())
+
+        yesterdayDate.value=dateConversionSrting(_date[1])!!
+        yesterdayPrice.value="₹${_price[1]}"
+        priceIncYesterday.value="₹${_price[1].minus(_price[2]).toFloat()}"
+        percentYest.value="%${String.format("%.3f",((_price[1].minus(_price[2]).toFloat()).div(_price[2])).times(100))}"
+
+        todaydate.value = dateConversionSrting(_date[0])!!
+        todayprice.value="₹${_price[0]}"
+        todayPriceIncr.value="₹${_price[0].minus(_price[1]).toFloat()}"
+        todayPercentage.value="%${String.format("%.3f",((_price[0].minus(_price[1]).toFloat()).div(_price[1])).times(100))}"
+
         stockvalues.value= Pair(dateConversion(_date.reversed()),_price.reversed())
     }
 
@@ -56,6 +78,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
        return formattedDate
+    }
+    private fun dateConversionSrting(date:String): String? {
+        var formattedDate:String?=null
+        try{
+                val parser = SimpleDateFormat("yyyy-MM-d", Locale.ROOT)
+                val formatter = SimpleDateFormat("dd MMM", Locale.ROOT)
+                formattedDate=formatter.format(parser.parse(date))
+            } catch(e: ParseException) {
+               ""
+            }
+        return formattedDate
     }
 
     private val _fundDetails = MutableLiveData<Stock>()
