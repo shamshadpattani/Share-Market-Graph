@@ -16,6 +16,7 @@ import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.reflect.Array.newInstance
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +42,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun showAddDialog() {
+        val dialog = AddInvestFragment.newInstances()
+        dialog.isCancelable = false
+        dialog.show(this.supportFragmentManager, "TAG")
+    }
+
+
     private fun init() {
         selectorGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
 
@@ -54,6 +62,9 @@ class MainActivity : AppCompatActivity() {
 
                 }
             }
+        }
+        fab_add.setOnClickListener {
+            showAddDialog()
         }
     }
 

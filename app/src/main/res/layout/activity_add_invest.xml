@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.stockchart.ui.MainViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AddInvestActivity">
+    tools:context=".ui.AddInvestFragment">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -68,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
                     android:imeOptions="actionNext"
-                    android:text="@={viewModel.problem}" />
+                    android:text="@={viewModel.amount}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
-                    android:text="@={viewModel.problem}" />
+                    android:text="@={viewModel.seletedDate}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,5 +111,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

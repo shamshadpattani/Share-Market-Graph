@@ -23,8 +23,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
 
-    val date = MutableLiveData<List<String>>()
-    val price = MutableLiveData<List<Double>>()
+    private val date = MutableLiveData<List<String>>()
+    private val price = MutableLiveData<List<Double>>()
 
     val yesterdayDate : MutableLiveData<String> = MutableLiveData()
     val yesterdayPrice : MutableLiveData<String> = MutableLiveData()
@@ -38,11 +38,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val todayPercentage : MutableLiveData<String> = MutableLiveData()
     val todayIncVal : MutableLiveData<Float> = MutableLiveData()
 
+    val amount : MutableLiveData<String> = MutableLiveData()
+    val seletedDate : MutableLiveData<String> = MutableLiveData()
+
     var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
 
     fun setData(data: List<List<Any>>, i: Int) {
-        var _price:MutableList<Double> = mutableListOf()
-        var _date:MutableList<String> = mutableListOf()
+        amount.value="120"
+        seletedDate.value="12 jan"
+        val _price:MutableList<Double> = mutableListOf()
+        val _date:MutableList<String> = mutableListOf()
         var count=0
         data.map { values->
             count += 1
