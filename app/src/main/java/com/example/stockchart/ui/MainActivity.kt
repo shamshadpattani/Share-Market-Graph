@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showAddDialog() {
         val dialog = AddInvestFragment.newInstances()
-        dialog.isCancelable = false
+        dialog.isCancelable = true
         dialog.show(this.supportFragmentManager, "TAG")
     }
 

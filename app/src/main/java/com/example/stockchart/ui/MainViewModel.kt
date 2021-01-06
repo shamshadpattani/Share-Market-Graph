@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -39,13 +41,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val todayIncVal : MutableLiveData<Float> = MutableLiveData()
 
     val amount : MutableLiveData<String> = MutableLiveData()
-    val seletedDate : MutableLiveData<String> = MutableLiveData()
+    val seletedDate : MutableLiveData<LocalDate> = MutableLiveData()
 
     var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
 
     fun setData(data: List<List<Any>>, i: Int) {
         amount.value="120"
-        seletedDate.value="12 jan"
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            seletedDate.value= LocalDate.now()
+        }
         val _price:MutableList<Double> = mutableListOf()
         val _date:MutableList<String> = mutableListOf()
         var count=0
