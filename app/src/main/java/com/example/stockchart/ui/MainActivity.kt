@@ -33,6 +33,12 @@ class MainActivity : AppCompatActivity() {
         observer()
         setAdjustScreen();
         init()
+        initAdapter()
+    }
+
+    private fun initAdapter() {
+
+
     }
 
     private fun init() {
@@ -41,11 +47,11 @@ class MainActivity : AppCompatActivity() {
             val listenerButton: MaterialButton = group.findViewById(checkedId)
             val checkedButton: MaterialButton? = group.findViewById(group.checkedButtonId)
             if (checkedButton != null) {
-                if (!isChecked) {
+                if (isChecked) {
                     Toast.makeText(this, "cheked${checkedButton.text}", Toast.LENGTH_SHORT).show()
                     mainViewModel.setvalues(checkedButton.text.toString(),dat)
                 }else{
-                    mainViewModel.setvalues(checkedButton.text.toString(),dat)
+
                 }
             }
         }
@@ -91,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     private fun setmap(dataset: List<Double>, date: List<String>) {
             aaChartModel.chartType(AAChartType.Areaspline)
             .backgroundColor("#1c232e")
-            .xAxisTickInterval(500)
+            .xAxisTickInterval(150)
             .borderRadius(0f)
             .yAxisGridLineWidth(0.001f)
             .gradientColorEnable(false)
@@ -114,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showTitles(data: Dataset) {
         aaChartModel.title(data.name)
-                .titleStyle(AAStyle().color("#810000").fontWeight(AAChartFontWeightType.Bold))
+                .titleStyle(AAStyle().color("#FFFFFF").fontWeight(AAChartFontWeightType.Bold))
                 .subtitle(data.description)
     }
 }
