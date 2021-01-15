@@ -1,10 +1,8 @@
 package com.example.stockchart.ui
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.stockchart.data.model.Info
 import com.example.stockchart.data.model.Stock
 import com.example.stockchart.data.repository.StockRepository
 import com.example.stockchart.data.utlis.ResultOf
@@ -14,7 +12,6 @@ import kotlinx.coroutines.launch
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -59,6 +56,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _date.add(values[0] as String)
                 _price.add(values[1] as Double)
             }
+            savetoDb(dateConversion(_date.reversed()),_price)
         }
         date.postValue(dateConversion(_date.reversed()))
         price.postValue(_price.reversed())
@@ -74,8 +72,25 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         todayPriceIncr.value="₹${_price[0].minus(_price[1]).toFloat()}"
         todayPercentage.value="%${String.format("%.3f",((_price[0].minus(_price[1]).toFloat()).div(_price[1])).times(100))}"
         todayIncVal.value=_price[0].minus(_price[1]).toFloat()
+
         stockvalues.value= Pair(dateConversion(_date.reversed()),_price.reversed())
+
     }
+
+    private fun savetoDb(
+        date: List<String>,
+        price: MutableList<Double>
+    ) {
+        var info:Info
+        date.map { dt->
+                price.map { pr ->
+                        info = Info(dt, pr)
+                        viewModelScope.launch(Dispatchers.Default) {
+                            val i= stockRepo.savedbdata(info)
+                        }
+                    }
+                }
+            }
 
     private fun dateConversion(date: List<String>): List<String> {
         val formattedDate: MutableList<String> = mutableListOf()

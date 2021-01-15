@@ -1,6 +1,5 @@
 package com.example.stockchart.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater

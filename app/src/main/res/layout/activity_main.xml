@@ -487,5 +487,15 @@
         app:backgroundTint="@color/black_thin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/room_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/element_spacing"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/room_btn_name"
+        app:layout_constraintTop_toTopOf="@+id/fab_add" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -73,7 +73,7 @@
                     android:id="@+id/inputAmount_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
+                    android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
                     android:text="@={viewModel.amount}" />
 
@@ -93,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
+                    android:inputType="none"
                     android:text="@{CommonUtils.INSTANCE.getReadableDate(viewModel.seletedDate)}" />
 
             </com.google.android.material.textfield.TextInputLayout>

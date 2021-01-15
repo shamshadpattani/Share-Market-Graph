@@ -1,8 +1,10 @@
 package com.example.stockchart.ui
 
 import android.annotation.SuppressLint
+import android.content.pm.ApplicationInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -11,10 +13,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.stockchart.R
 import com.example.stockchart.data.model.Dataset
+import com.example.stockchart.data.room.EntityDescriptions
+import com.example.stockchart.data.room.StockDatabase
 import com.example.stockchart.databinding.ActivityMainBinding
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.google.android.material.button.MaterialButton
+import com.wajahatkarim3.roomexplorer.RoomExplorer
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.reflect.Array.newInstance
 
@@ -56,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             val checkedButton: MaterialButton? = group.findViewById(group.checkedButtonId)
             if (checkedButton != null) {
                 if (isChecked) {
-                    Toast.makeText(this, "cheked${checkedButton.text}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "checked${checkedButton.text}", Toast.LENGTH_SHORT).show()
                     mainViewModel.setvalues(checkedButton.text.toString(),dat)
                 }else{
 
@@ -66,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         fab_add.setOnClickListener {
             showAddDialog()
         }
+        initDebugTools()
     }
 
 
@@ -133,5 +139,15 @@ class MainActivity : AppCompatActivity() {
         aaChartModel.title(data.name)
                 .titleStyle(AAStyle().color("#FFFFFF").fontWeight(AAChartFontWeightType.Bold))
                 .subtitle(data.description)
+    }
+
+    private fun initDebugTools() {
+        val isDebug: Boolean = this.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+        if (!isDebug) return
+
+
+        room_btn.setOnClickListener {
+            RoomExplorer.show(this, StockDatabase::class.java, EntityDescriptions.DB_NAME)
+        }
     }
 }

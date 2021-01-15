@@ -12,4 +12,5 @@
     <string name="amount_text">amount</string>
     <string name="date_text">date</string>
     <string name="unit_dummy">Unit:2.40</string>
+    <string name="room_btn_name">ROOM</string>
 </resources>
