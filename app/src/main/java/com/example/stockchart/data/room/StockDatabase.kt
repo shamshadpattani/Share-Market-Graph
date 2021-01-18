@@ -13,11 +13,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+
 @Database(
     entities = [
         Info::class
     ],
-    version = DatabaseMigrations.DB_VERSION
+    version = 4,
+    exportSchema = false
 )
 abstract class StockDatabase : RoomDatabase() {
 
@@ -30,7 +32,6 @@ abstract class StockDatabase : RoomDatabase() {
             if (tempInstance != null) {
                 return tempInstance
             }
-
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                         context.applicationContext,
@@ -38,8 +39,7 @@ abstract class StockDatabase : RoomDatabase() {
                     DB_NAME
                     )
                   .fallbackToDestructiveMigration()
-                 //   .addMigrations(*DatabaseMigrations.MIGRATIONS)
-                    .build()
+                   .build()
 
                 INSTANCE = instance
                 return instance

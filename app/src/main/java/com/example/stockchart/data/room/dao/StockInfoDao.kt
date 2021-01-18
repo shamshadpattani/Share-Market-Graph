@@ -3,6 +3,7 @@ package com.example.stockchart.data.room.dao
 import android.icu.text.IDNA
 import androidx.room.*
 import com.example.stockchart.data.model.Info
+import com.example.stockchart.data.room.EntityDescriptions
 
 @Dao
 abstract class StockInfoDao {
@@ -21,13 +22,7 @@ abstract class StockInfoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(summary: Info): Long
 
-    /*@Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(centers: List<Center>): List<Long>*/
-
-   /* fun getSummary(): AuditSummary? {
-        val summary = getPartialSummary()
-        summary?.let { it.centers = getCenters(summary.localId) }
-        return summary
-    }*/
+    @Query("SELECT * FROM ${EntityDescriptions.TABLE_INFO} WHERE date = :id")
+    abstract fun getPrice(id: String): Info?
 
 }

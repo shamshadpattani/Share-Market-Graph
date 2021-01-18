@@ -4,13 +4,15 @@ import android.annotation.SuppressLint
 import android.content.pm.ApplicationInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.chad.library.adapter.base.animation.SlideInBottomAnimation
 import com.example.stockchart.R
 import com.example.stockchart.data.model.Dataset
 import com.example.stockchart.data.room.EntityDescriptions
@@ -21,19 +23,22 @@ import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.google.android.material.button.MaterialButton
 import com.wajahatkarim3.roomexplorer.RoomExplorer
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.reflect.Array.newInstance
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var investViewModel: InvestViewModel
+
     private lateinit var binding: ActivityMainBinding
     private val aaChartModel: AAChartModel = AAChartModel()
     private lateinit var dat: List<List<Any>>
+    private lateinit var mAdapter: InvestQuickAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        investViewModel = ViewModelProvider(this).get(InvestViewModel::class.java)
         binding.stock = mainViewModel
         binding.lifecycleOwner = this
         observer()
@@ -43,8 +48,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
+        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.setHasFixedSize(true)
+        mAdapter = InvestQuickAdapter(mutableListOf())
+        recycler_view.adapter = mAdapter
+        mAdapter.apply {
+            animationEnable = false
+            adapterAnimation = SlideInBottomAnimation()
+            isAnimationFirstOnly = true
 
-
+        }
     }
 
     private fun showAddDialog() {
@@ -56,8 +69,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         selectorGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
-
-            val listenerButton: MaterialButton = group.findViewById(checkedId)
             val checkedButton: MaterialButton? = group.findViewById(group.checkedButtonId)
             if (checkedButton != null) {
                 if (isChecked) {
@@ -108,6 +119,9 @@ class MainActivity : AppCompatActivity() {
                 today_percentage.setTextColor(ContextCompat.getColor(this,R.color.light_green_color))
                 today_price_incr.setTextColor(ContextCompat.getColor(this,R.color.dark_green_color))
             }
+        })
+        investViewModel.myInvest.observe(this, Observer { myInvest->
+
         })
     }
 

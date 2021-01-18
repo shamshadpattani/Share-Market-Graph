@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val stockRepo: StockRepository = StockRepository(getApplication())
@@ -37,16 +36,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val todayPercentage : MutableLiveData<String> = MutableLiveData()
     val todayIncVal : MutableLiveData<Float> = MutableLiveData()
 
-    val amount : MutableLiveData<String> = MutableLiveData()
-    val seletedDate : MutableLiveData<LocalDate> = MutableLiveData()
+
 
     var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
 
     fun setData(data: List<List<Any>>, i: Int) {
-        amount.value="120"
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            seletedDate.value= LocalDate.now()
-        }
         val _price:MutableList<Double> = mutableListOf()
         val _date:MutableList<String> = mutableListOf()
         var count=0
@@ -56,7 +50,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _date.add(values[0] as String)
                 _price.add(values[1] as Double)
             }
-            savetoDb(dateConversion(_date.reversed()),_price)
         }
         date.postValue(dateConversion(_date.reversed()))
         price.postValue(_price.reversed())
@@ -75,22 +68,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         stockvalues.value= Pair(dateConversion(_date.reversed()),_price.reversed())
 
+
+        var counts = 0
+        _fundDetails.value?.dataset?.data?.map { values ->
+            counts += 1
+            var info: Info? =null
+            if (count <= _fundDetails.value!!.dataset.data.size) {
+                info = Info(values[0] as String, values[1] as Double)
+            }
+            viewModelScope.launch(Dispatchers.IO) {
+                val i = info?.let { stockRepo.savedbdata(it) }
+            }
+        }
     }
 
-    private fun savetoDb(
-        date: List<String>,
-        price: MutableList<Double>
-    ) {
-        var info:Info
-        date.map { dt->
-                price.map { pr ->
-                        info = Info(dt, pr)
-                        viewModelScope.launch(Dispatchers.Default) {
-                            val i= stockRepo.savedbdata(info)
-                        }
-                    }
-                }
-            }
+
 
     private fun dateConversion(date: List<String>): List<String> {
         val formattedDate: MutableList<String> = mutableListOf()
@@ -130,6 +122,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 when(result) {
                     is ResultOf.Success -> {
                         _fundDetails.postValue(result.value!!)
+
                     }
                     is ResultOf.Loading -> _dataLoading.postValue(true)
                     is ResultOf.Error -> _dataLoading.postValue(false)
@@ -137,6 +130,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
 
     fun setvalues(text: String?, dat: List<List<Any>>) {
         when {

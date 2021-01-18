@@ -5,7 +5,5 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 object DatabaseMigrations {
 
-    const val DB_VERSION = 1
-
-
+    const val DB_VERSION = 4
 }

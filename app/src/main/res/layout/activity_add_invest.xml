@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.stockchart.ui.MainViewModel" />
+            type="com.example.stockchart.ui.InvestViewModel" />
         <import type="com.example.stockchart.utlis.CommonUtils"/>
     </data>
 
@@ -80,7 +80,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/InputDate"
+                android:id="@+id/inputDate"
                 style="@style/Widget.App.TextInputLayout.Problem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,11 +103,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:text="@string/unit_dummy"
+                tools:text="@string/unit_dummy"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/InputDate"
-                app:layout_constraintTop_toBottomOf="@+id/InputDate"
+                app:layout_constraintEnd_toEndOf="@+id/inputDate"
+                app:layout_constraintTop_toBottomOf="@+id/inputDate"
+                android:text="@={viewModel.unit}"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

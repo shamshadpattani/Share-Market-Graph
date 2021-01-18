@@ -14,7 +14,7 @@ android {
     }
     defaultConfig {
         applicationId "com.example.stockchart"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -68,6 +68,7 @@ dependencies {
     //chart
     implementation 'com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
 
     //room
     def room_version = "2.2.6"

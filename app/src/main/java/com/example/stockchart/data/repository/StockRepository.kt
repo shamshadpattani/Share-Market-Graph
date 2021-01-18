@@ -24,8 +24,12 @@ class StockRepository (c: Application) {
         }.asFlow().flowOn(Dispatchers.IO)
     }
 
-  suspend  fun savedbdata(info: Info): Long {
+ fun savedbdata(info: Info): Long {
       val inputDb = db.insert(info)
       return inputDb
+    }
+
+    fun getPriceFromDB(it: String): Info? {
+      return db.getPrice(it)
     }
 }

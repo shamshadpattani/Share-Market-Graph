@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.stockchart.R
+import com.example.stockchart.data.model.MyInvest
 import com.example.stockchart.databinding.ActivityAddInvestBinding
 import com.example.stockchart.databinding.ActivityMainBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -21,7 +24,7 @@ import java.time.ZoneOffset
 
 class AddInvestFragment : BottomSheetDialogFragment() {
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: InvestViewModel
     private lateinit var binding: ActivityAddInvestBinding
 
 
@@ -37,7 +40,7 @@ class AddInvestFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(InvestViewModel::class.java)
         super.onCreate(savedInstanceState)
     }
 
@@ -61,16 +64,34 @@ class AddInvestFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        inits()
+        init()
         //subscribe()
     }
 
-    private fun inits() {
+    private fun init() {
         inputDate_text.apply {
             inputType = InputType.TYPE_NULL
             keyListener = null
             setOnFocusChangeListener { _, hasFocus -> if (hasFocus) showDatePicker() }
             setOnClickListener { showDatePicker() }
+        }
+
+        problem_save_btn.setOnClickListener {
+            when {
+                viewModel.seletedDate.value==null -> {
+                    binding.inputDate.error="fill it"
+                }
+                viewModel.amount.value==null -> {
+                    binding.inputamount.error="must be fill it"
+                }
+                else -> {
+                    viewModel.saveProblem()
+                }
+            }
+
+        }
+        problem_cancel_btn.setOnClickListener {
+           // viewModel.discardChanges()
         }
     }
 
@@ -80,11 +101,7 @@ class AddInvestFragment : BottomSheetDialogFragment() {
         builder.setTitleText(R.string.date_text)
 
         if (date != null) {
-         val dateLong = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-             date.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
-         } else {
-             TODO("VERSION.SDK_INT < O")
-         }
+         val dateLong= date.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
             builder.setSelection(dateLong)
             val constraintsBuilder = CalendarConstraints.Builder()
             constraintsBuilder.setOpenAt(dateLong)
@@ -92,12 +109,8 @@ class AddInvestFragment : BottomSheetDialogFragment() {
         }
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener {
-            val newDate =
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    Instant.ofEpochMilli(it).atZone(ZoneId.of("UTC")).toLocalDate()
-                } else {
-                    TODO("VERSION.SDK_INT < O")
-                }
+            val newDate = Instant.ofEpochMilli(it).atZone(ZoneId.of("UTC")).toLocalDate()
+
             viewModel.seletedDate.postValue(newDate)
         }
         picker.show(childFragmentManager, "CHECKUP_DATE")
