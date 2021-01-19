@@ -133,11 +133,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateInvestList(myInvestDB: List<MyInvestDB>, d: Double) {
+        updateInvest.clear()
         myInvestDB.map { myInv ->
-            val my_price = d.times(myInv.unit.toDouble())
-            val price_diff= myInv.invest_price!!.toDouble()?.let { my_price.minus(it) }
-            val inv= MyInvest(my_price =my_price,invest_price = myInv.invest_price,invest_date = myInv.invest_date,
-                    unit = myInv.unit,nav = myInv.nav,price_diff = price_diff)
+            val my_price = String.format("%.3f",d.times(myInv.unit.toDouble()))
+            val price_diff= String.format("%.2f",myInv.invest_price!!.toDouble()?.let { my_price.toDouble().minus(it) })
+            val inv= MyInvest(my_price =my_price.toDouble(),invest_price = myInv.invest_price,invest_date = myInv.invest_date,
+                    unit = myInv.unit,nav = myInv.nav,price_diff = price_diff.toDouble())
             updateInvest?.add(inv)
             mAdapter.updateItems(updateInvest)
         }
