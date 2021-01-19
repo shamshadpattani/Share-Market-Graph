@@ -1,5 +1,6 @@
 package com.example.stockchart.ui
 
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.stockchart.R
@@ -11,10 +12,22 @@ class InvestQuickAdapter(data: MutableList<MyInvest>) : BaseQuickAdapter<MyInves
         holder.setText(R.id.invest_price,"₹"+item.invest_price)
             .setText(R.id.unit_count,item.unit)
             .setText(R.id.date_text,item.invest_date)
-
             .setText(R.id.nav_price,"₹"+item.nav.toString())
-
             .setText(R.id.new_price,"₹"+item.my_price.toString())
+            .setText(R.id.price_diff,"₹"+item.price_diff.toString())
+
+        if(item.invest_price?.toDouble()!! > item.my_price?.toDouble()!!){
+            (holder.getView(R.id.new_price) as TextView).setTextColor(context.getColor(R.color.negative_color))
+        }else{
+            (holder.getView(R.id.new_price) as TextView).setTextColor(context.getColor(R.color.light_green_color))
+        }
+
+        if(item.price_diff<0){
+                (holder.getView(R.id.price_diff) as TextView).setTextColor(context.getColor(R.color.negative_color))
+        }else{
+            (holder.getView(R.id.price_diff) as TextView).setTextColor(context.getColor(R.color.light_green_color))
+        }
+
     }
 
     fun updateItems(newItems: MutableList<MyInvest>?) {
