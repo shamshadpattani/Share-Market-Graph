@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.animation.SlideInBottomAnimation
 import com.example.stockchart.R
 import com.example.stockchart.data.model.Dataset
+import com.example.stockchart.data.model.MyInvest
 import com.example.stockchart.data.room.EntityDescriptions
 import com.example.stockchart.data.room.StockDatabase
 import com.example.stockchart.databinding.ActivityMainBinding
@@ -121,8 +122,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
         investViewModel.myInvest.observe(this, Observer { myInvest->
-
+            updateInvestList(myInvest as List<MyInvest>)
         })
+    }
+
+    private fun updateInvestList(myInvest: List<MyInvest>) {
+        mAdapter.updateItems(myInvest)
     }
 
     private fun setmap(dataset: List<Double>, date: List<String>) {

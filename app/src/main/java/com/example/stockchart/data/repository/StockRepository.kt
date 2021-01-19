@@ -1,10 +1,11 @@
 package com.example.stockchart.data.repository
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import com.example.stockchart.data.APIClient
-import com.example.stockchart.data.APIInterface
 import com.example.stockchart.data.NetworkBoundRepository
 import com.example.stockchart.data.model.Info
+import com.example.stockchart.data.model.MyInvest
 import com.example.stockchart.data.model.Stock
 import com.example.stockchart.data.room.StockDatabase
 import com.example.stockchart.data.utlis.ResultOf
@@ -17,6 +18,8 @@ import retrofit2.Response
 class StockRepository (c: Application) {
     private var mContext: Application = c
     private val db = StockDatabase.getInstance(mContext).saveInfoDao()
+    private val investDb = StockDatabase.getInstance(mContext).saveInvestDao()
+
     @ExperimentalCoroutinesApi
     fun getData(): Flow<ResultOf<Stock>> {
         return object : NetworkBoundRepository<Stock>() {
@@ -24,12 +27,21 @@ class StockRepository (c: Application) {
         }.asFlow().flowOn(Dispatchers.IO)
     }
 
- fun savedbdata(info: Info): Long {
-      val inputDb = db.insert(info)
-      return inputDb
+    fun savedbdata(info: Info): Long {
+        val inputDb = db.insert(info)
+        return inputDb
     }
 
     fun getPriceFromDB(it: String): Info? {
-      return db.getPrice(it)
+        return db.getPrice(it)
+    }
+
+    fun saveInvest(myIn: MyInvest): Long {
+        val inputDb = investDb.insert(myIn)
+        return inputDb
+    }
+
+    fun getsaveInvest(): LiveData<List<MyInvest>> {
+        return investDb.getInvest()
     }
 }

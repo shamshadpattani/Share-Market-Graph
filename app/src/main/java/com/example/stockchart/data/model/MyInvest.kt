@@ -13,15 +13,14 @@ import java.time.format.DateTimeFormatter
     ]
 )
 data class MyInvest(
-
-    val invest_date: String,
-    val invest_price: String?,
-    val unit: String,
-    val nav: Double?,
+    var invest_date: String,
+    var invest_price: String?,
+    var unit: String,
+    var nav: Double?,
     val my_price: String?
 ){
     @PrimaryKey(autoGenerate = true)
-    val id :Int=0
+    var id :Int? =null
     companion object {
         private const val DATE_FORMAT = "yyyy-MM-dd"
         private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")

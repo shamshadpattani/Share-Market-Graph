@@ -22,46 +22,42 @@ class InvestViewModel(application: Application) : AndroidViewModel(application) 
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
 
-    private val _myInvest = MutableLiveData<List<MyInvest>>()
-    val myInvest: LiveData<List<MyInvest>>
-        get() {
-            _myInvest.value ?: getInvest()
-            return _myInvest
-        }
+     val myInvest : LiveData<List<MyInvest>> = stockRepo.getsaveInvest()
 
     private fun getInvest() {
         val myIn: MyInvest? =
             MyInvest(
                 nav = info?.price,
                 invest_price = amount.value,
-                invest_date = seletedDate.toString(),
+                invest_date = seletedDate.value.toString(),
                 unit = unit.value.toString(),
                 my_price = now_amount.value
             )
-        val inv:MutableList<MyInvest> = mutableListOf()
+        val inv: MutableList<MyInvest> = mutableListOf()
         if (myIn != null) {
             inv.add(myIn)
+            viewModelScope.launch(Dispatchers.IO) {
+                stockRepo.saveInvest(myIn)
+            }
         }
-        _myInvest.postValue(inv)
     }
 
     fun saveProblem() {
-
-      val purchaseAmount=amount.value!!.toDouble()
+        val purchaseAmount = amount.value!!.toDouble()
         viewModelScope.launch(Dispatchers.IO) {
-             info = stockRepo.getPriceFromDB(seletedDate.value.toString())
+            info = stockRepo.getPriceFromDB(seletedDate.value.toString())
             withContext(Dispatchers.Main) {
                 // call to UI thread
-                unit.value=String.format("%.2f",(info?.price?.let { purchaseAmount.div(it).toFloat()
-                now_amount.value= unit.value?.let { it1 -> info!!.price.times(it1?.toDouble()).toString() }
-                }))
+                unit.value = String.format("%.2f", (info?.price?.let { purchaseAmount.div(it) }))
+                now_amount.value = unit.value?.let { it1 -> info!!.price.times(it1?.toDouble()).toString() }
+                getInvest()
             }
-
         }
+
     }
 
     fun discardChanges() {
         TODO("Not yet implemented")
     }
-
 }
+
