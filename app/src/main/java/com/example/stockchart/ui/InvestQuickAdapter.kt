@@ -11,7 +11,9 @@ class InvestQuickAdapter(data: MutableList<MyInvest>) : BaseQuickAdapter<MyInves
         holder.setText(R.id.invest_price,"₹"+item.invest_price)
             .setText(R.id.unit_count,item.unit)
             .setText(R.id.date_text,item.invest_date)
+
             .setText(R.id.nav_price,"₹"+item.nav.toString())
+
             .setText(R.id.new_price,"₹"+item.my_price.toString())
     }
 
