@@ -7,7 +7,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.stockchart.data.model.Info
-import com.example.stockchart.data.model.MyInvest
+import com.example.stockchart.data.model.MyInvestDB
 import com.example.stockchart.data.room.EntityDescriptions.DB_NAME
 import com.example.stockchart.data.room.dao.InvestDao
 import com.example.stockchart.data.room.dao.StockInfoDao
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 @Database(
     entities = [
         Info::class,
-    MyInvest::class
+    MyInvestDB::class
     ],
     version = DatabaseMigrations.DB_VERSION,
     exportSchema = false

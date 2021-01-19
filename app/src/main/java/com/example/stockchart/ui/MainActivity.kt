@@ -9,13 +9,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.animation.SlideInBottomAnimation
 import com.example.stockchart.R
 import com.example.stockchart.data.model.Dataset
 import com.example.stockchart.data.model.MyInvest
+import com.example.stockchart.data.model.MyInvestDB
 import com.example.stockchart.data.room.EntityDescriptions
 import com.example.stockchart.data.room.StockDatabase
 import com.example.stockchart.databinding.ActivityMainBinding
@@ -26,7 +26,8 @@ import com.wajahatkarim3.roomexplorer.RoomExplorer
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
+     private val updateInvest: MutableList<MyInvest> = mutableListOf()
+    private val invest: MutableList<MyInvestDB> = mutableListOf()
     private lateinit var mainViewModel: MainViewModel
     private lateinit var investViewModel: InvestViewModel
 
@@ -100,6 +101,7 @@ class MainActivity : AppCompatActivity() {
             dat=stock.dataset.data
             mainViewModel.setData(dat,5)
         })
+
         mainViewModel.stockvalues.observe(this, { values ->
             setmap(values.second, values.first)
         })
@@ -121,13 +123,23 @@ class MainActivity : AppCompatActivity() {
                 today_price_incr.setTextColor(ContextCompat.getColor(this,R.color.dark_green_color))
             }
         })
-        investViewModel.myInvest.observe(this, Observer { myInvest->
-            updateInvestList(myInvest as List<MyInvest>)
+        investViewModel.myInvestDB.observe(this, Observer { myInvest->
+            //updateInvestList(myInvest as List<MyInvestDB>)
+            invest.addAll(myInvest)
+        })
+        mainViewModel.todaypriceInDec.observe(this, Observer {
+            updateInvestList(invest,it)
         })
     }
 
-    private fun updateInvestList(myInvest: List<MyInvest>) {
-        mAdapter.updateItems(myInvest)
+    private fun updateInvestList(myInvestDB: List<MyInvestDB>, d: Double) {
+        myInvestDB.map { myInv ->
+            val my_price = d.times(myInv.unit.toDouble())
+            val inv= MyInvest(my_price =my_price,invest_price = myInv.invest_price,invest_date = myInv.invest_date,
+                    unit = myInv.unit,nav = myInv.nav)
+            updateInvest?.add(inv)
+            mAdapter.updateItems(updateInvest)
+        }
     }
 
     private fun setmap(dataset: List<Double>, date: List<String>) {

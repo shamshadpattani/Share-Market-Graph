@@ -1,10 +1,8 @@
 package com.example.stockchart.data.room.dao
 
-import android.icu.text.IDNA
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.stockchart.data.model.Info
-import com.example.stockchart.data.model.MyInvest
+import com.example.stockchart.data.model.MyInvestDB
 import com.example.stockchart.data.room.EntityDescriptions
 
 @Dao
@@ -22,9 +20,9 @@ abstract class InvestDao {
     }*/
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(summary: MyInvest): Long
+    abstract fun insert(summary: MyInvestDB): Long
 
     @Query("SELECT * FROM ${EntityDescriptions.TABLE_INVEST} ")
-    abstract fun getInvest(): LiveData<List<MyInvest>>
+    abstract fun getInvest(): LiveData<List<MyInvestDB>>
 
 }

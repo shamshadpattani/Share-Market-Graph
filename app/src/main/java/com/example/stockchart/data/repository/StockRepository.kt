@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import com.example.stockchart.data.APIClient
 import com.example.stockchart.data.NetworkBoundRepository
 import com.example.stockchart.data.model.Info
-import com.example.stockchart.data.model.MyInvest
+import com.example.stockchart.data.model.MyInvestDB
 import com.example.stockchart.data.model.Stock
 import com.example.stockchart.data.room.StockDatabase
 import com.example.stockchart.data.utlis.ResultOf
@@ -36,12 +36,12 @@ class StockRepository (c: Application) {
         return db.getPrice(it)
     }
 
-    fun saveInvest(myIn: MyInvest): Long {
-        val inputDb = investDb.insert(myIn)
+    fun saveInvest(myInDB: MyInvestDB): Long {
+        val inputDb = investDb.insert(myInDB)
         return inputDb
     }
 
-    fun getsaveInvest(): LiveData<List<MyInvest>> {
+    fun getsaveInvest(): LiveData<List<MyInvestDB>> {
         return investDb.getInvest()
     }
 }

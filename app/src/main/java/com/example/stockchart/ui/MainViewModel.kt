@@ -32,6 +32,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val todaydate : MutableLiveData<String> = MutableLiveData()
     val todayprice : MutableLiveData<String> = MutableLiveData()
+    val todaypriceInDec : MutableLiveData<Double> = MutableLiveData()
     val todayPriceIncr : MutableLiveData<String> = MutableLiveData()
     val todayPercentage : MutableLiveData<String> = MutableLiveData()
     val todayIncVal : MutableLiveData<Float> = MutableLiveData()
@@ -62,6 +63,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         todaydate.value = dateConversionSrting(_date[0])!!
         todayprice.value="₹${_price[0]}"
+        todaypriceInDec.value=_price[0]
         todayPriceIncr.value="₹${_price[0].minus(_price[1]).toFloat()}"
         todayPercentage.value="%${String.format("%.3f",((_price[0].minus(_price[1]).toFloat()).div(_price[1])).times(100))}"
         todayIncVal.value=_price[0].minus(_price[1]).toFloat()
