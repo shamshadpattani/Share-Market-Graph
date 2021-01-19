@@ -4,4 +4,13 @@
     <string name="yesterday_text_head">Yesterday</string>
     <string name="enter_your_amount">Enter your amount</string>
     <string name="enter_something">Enter Amount</string>
+    <string name="investment_head">Investment</string>
+    <string name="unit_head_text">Unit</string>
+    <string name="nav_text_head">NAV</string>
+    <string name="generic_close">Close</string>
+    <string name="generic_save">Save</string>
+    <string name="amount_text">amount</string>
+    <string name="date_text">date</string>
+    <string name="unit_dummy">Unit:2.40</string>
+    <string name="room_btn_name">ROOM</string>
 </resources>

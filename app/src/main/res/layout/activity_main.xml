@@ -7,450 +7,497 @@
         <variable name="stock"
             type="com.example.stockchart.ui.MainViewModel"/>
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.MainActivity">
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
+    android:layout_marginBottom="50dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:cardCornerRadius="8dp"
-        android:elevation="4dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-            android:id="@+id/aaChartView"
+        android:layout_height="match_parent">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
+            android:layout_height="300dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="8dp"
+            app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/selectorGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="7"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:singleSelection="true"
-        app:layout_constraintEnd_toEndOf="@+id/materialCardView"
-        app:layout_constraintStart_toStartOf="@+id/materialCardView"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5D"
-            android:layout_weight="1"
-            app:rippleColor="@color/teal_700"
-            android:textColor="@color/negative_color"
-            style="?attr/materialButtonOutlinedStyle"
-            app:strokeColor="@color/light_black_color" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/oneMonthBtn"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1M"
-            app:rippleColor="@color/teal_700"
-            android:layout_weight="1"
-            android:textColor="@color/negative_color"
-            app:strokeColor="@color/light_black_color" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/threeMonthBtn"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3M"
-            android:layout_weight="1"
-            android:textColor="@color/negative_color"
-            app:rippleColor="@color/teal_700"
-            app:strokeColor="@color/light_black_color" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/oneYearBtn"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1Y"
-            android:layout_weight="1"
-            android:textColor="@color/negative_color"
-            app:rippleColor="@color/teal_700"
-            app:strokeColor="@color/light_black_color" />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/twoYearBtn"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2Y"
-            android:layout_weight="1"
-            android:textColor="@color/negative_color"
-            app:rippleColor="@color/teal_700"
-            app:strokeColor="@color/light_black_color" />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/threeYearBtn"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3Y"
-            android:layout_weight="1"
-            android:textColor="@color/negative_color"
-            app:rippleColor="@color/teal_700"
-            app:strokeColor="@color/light_black_color" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:id="@+id/maxBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MAX"
-            android:layout_weight="1"
-            android:textColor="@color/negative_color"
-            app:rippleColor="@color/teal_700"
-            app:strokeColor="@color/light_black_color" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-
-
-
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="2dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectorGroup" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        app:cardBackgroundColor="@color/light_black_color"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toStartOf="@+id/view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectorGroup">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginEnd="4dp"
-            android:layout_marginStart="8dp"
-            android:orientation="vertical">
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/t1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                android:rotation="4"
-                android:rotationX="-25"
-                android:rotationY="17"
-                android:text="@string/yesterday_text_head"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:typeface="sans"
+            <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+                android:id="@+id/aaChartView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/percentYstrday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                tools:text="+2.3%"
-                android:text="@{stock.percentYest}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/light_green_color"
-                android:textSize="16sp"
-                android:typeface="sans"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/t1"
-                app:layout_constraintTop_toTopOf="@+id/yesterday_date" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/priceIncrementyesterday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="₹1.78"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/dark_green_color"
-                android:textSize="12sp"
-                android:typeface="sans"
-                android:text="@{stock.priceIncYesterday}"
-                app:layout_constraintBottom_toBottomOf="@+id/priceYesterday"
-                app:layout_constraintEnd_toEndOf="@+id/percentYstrday"
-                app:layout_constraintStart_toStartOf="@+id/percentYstrday"
-                app:layout_constraintTop_toBottomOf="@+id/percentYstrday" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/yesterday_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-light"
-                android:text="@{stock.yesterdayDate}"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/t1"
-                tools:text="12 jan" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/priceYesterday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="sans-serif-medium"
-                tools:text="₹100.60"
-                android:text="@{stock.yesterdayPrice}"
-                android:textColor="@color/light_green_color"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/yesterday_date" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/todayCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        app:cardBackgroundColor="@color/light_black_color"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="@+id/selectorGroup"
-        app:layout_constraintStart_toEndOf="@id/view"
-        app:layout_constraintTop_toBottomOf="@+id/selectorGroup">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginEnd="4dp"
-            android:layout_marginStart="8dp"
-            android:orientation="vertical">
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/t2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                android:rotation="4"
-                android:rotationX="-25"
-                android:rotationY="17"
-                android:text="@string/to_day_text_head"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:typeface="sans"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/today_percentage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                tools:text="+2.3%"
-                android:text="@{stock.todayPercentage}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/light_green_color"
-                android:textSize="16sp"
-                android:typeface="sans"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/t2"
-                app:layout_constraintTop_toTopOf="@+id/today_date" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/today_price_incr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="₹1.78"
-                android:text="@{stock.todayPriceIncr}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/dark_green_color"
-                android:textSize="12sp"
-                android:typeface="sans"
-                app:layout_constraintBottom_toBottomOf="@+id/today_date"
-                app:layout_constraintEnd_toEndOf="@+id/today_percentage"
-                app:layout_constraintStart_toStartOf="@+id/today_percentage"
-                app:layout_constraintTop_toBottomOf="@+id/today_price" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/today_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@{stock.todaydate}"
-                tools:text="14 may"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/t2" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/today_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="sans-serif-medium"
-                tools:text="$100.60"
-                android:text="@{stock.todayprice}"
-                android:textColor="@color/light_green_color"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/today_date" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:visibility="invisible"
-        android:layout_marginEnd="12dp"
-        app:cardBackgroundColor="@color/light_black_color"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="@+id/todayCard"
-        app:layout_constraintStart_toEndOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/selectorGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:soundEffectsEnabled="true"
+            android:weightSum="7"
+            app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+            app:layout_constraintStart_toStartOf="@+id/materialCardView"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/day"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:soundEffectsEnabled="true"
+                android:text="5D"
+                android:textColor="@color/teal_700"
+                app:cornerRadius="12dp"
+                app:rippleColor="@color/negative_color"
+                app:strokeColor="@color/light_black_color" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/oneMonthBtn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1M"
+                android:textColor="@color/teal_700"
+                app:rippleColor="@color/negative_color"
+                app:strokeColor="@color/light_black_color" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/threeMonthBtn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3M"
+                android:textColor="@color/teal_700"
+                app:rippleColor="@color/negative_color"
+                app:strokeColor="@color/light_black_color" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/oneYearBtn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1Y"
+                android:textColor="@color/teal_700"
+                app:rippleColor="@color/negative_color"
+                app:strokeColor="@color/light_black_color" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/twoYearBtn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2Y"
+                android:textColor="@color/teal_700"
+                app:rippleColor="@color/negative_color"
+                app:strokeColor="@color/light_black_color" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/threeYearBtn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3Y"
+                android:textColor="@color/teal_700"
+                app:rippleColor="@color/negative_color"
+                app:strokeColor="@color/light_black_color" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/maxBtn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MAX"
+                android:textColor="@color/teal_700"
+                app:cornerRadius="12dp"
+                app:rippleColor="@color/negative_color"
+                app:strokeColor="@color/light_black_color" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="2dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/materialCardView3">
+            app:layout_constraintTop_toBottomOf="@+id/selectorGroup" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/appCompatTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:lineSpacingExtra="10sp"
-                android:text="Monthly SIP"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                app:layout_constraintBottom_toBottomOf="@+id/switchButton"
-                app:layout_constraintEnd_toStartOf="@+id/switchButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView2"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            app:cardBackgroundColor="@color/light_black_color"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toStartOf="@+id/view"
+            app:layout_constraintStart_toStartOf="@+id/selectorGroup"
+            app:layout_constraintTop_toBottomOf="@+id/selectorGroup">
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/Lumpsum_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:lineSpacingExtra="10sp"
-                android:text="Lumpsum"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                app:layout_constraintBottom_toBottomOf="@+id/switchButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/switchButton"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filledTextField"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="@string/enter_something"
-                app:hintTextColor="@color/light_grey_color"
-                app:layout_constraintEnd_toEndOf="@+id/Lumpsum_text"
-                app:layout_constraintStart_toStartOf="@+id/appCompatTextView"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_text"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/t1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:textColor="@color/white" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:fontFamily="sans-serif-black"
+                    android:rotation="1"
+                    android:text="@string/yesterday_text_head"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:typeface="sans"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/total_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:lineSpacingExtra="10sp"
-                android:text="Total Invest:₹99.78"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/switchButton"
-                app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/percentYstrday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@{stock.percentYest}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/light_green_color"
+                    android:textSize="14sp"
+                    android:typeface="sans"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/t1"
+                    app:layout_constraintTop_toTopOf="@+id/yesterday_date"
+                    tools:text="+2.3%" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/return_text"
-                android:layout_width="0dp"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/priceIncYday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{stock.priceIncYesterday}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/dark_green_color"
+                    android:textSize="14sp"
+                    android:typeface="sans"
+                    app:layout_constraintBottom_toBottomOf="@+id/priceYesterday"
+                    app:layout_constraintEnd_toEndOf="@+id/percentYstrday"
+                    app:layout_constraintStart_toStartOf="@+id/percentYstrday"
+                    app:layout_constraintTop_toTopOf="@+id/priceYesterday"
+                    tools:text="₹1.78" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/yesterday_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@{stock.yesterdayDate}"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/t1"
+                    tools:text="12 jan" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/priceYesterday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@{stock.yesterdayPrice}"
+                    android:textColor="@color/light_green_color"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/yesterday_date"
+                    tools:text="₹100.60" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/todayCard"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/light_black_color"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="@+id/selectorGroup"
+            app:layout_constraintStart_toEndOf="@id/view"
+            app:layout_constraintTop_toBottomOf="@+id/selectorGroup">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:orientation="vertical">
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/t2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:rotation="1"
+                    android:text="@string/to_day_text_head"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:typeface="sans"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/today_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@{stock.todayPercentage}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/light_green_color"
+                    android:textSize="14sp"
+                    android:typeface="sans"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/t2"
+                    app:layout_constraintTop_toTopOf="@+id/today_date"
+                    tools:text="+2.3%" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/today_price_incr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{stock.todayPriceIncr}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/dark_green_color"
+                    android:textSize="14sp"
+                    android:typeface="sans"
+                    app:layout_constraintBottom_toBottomOf="@+id/today_percentage"
+                    app:layout_constraintEnd_toEndOf="@+id/today_percentage"
+                    app:layout_constraintStart_toStartOf="@+id/today_percentage"
+                    app:layout_constraintTop_toBottomOf="@+id/today_price"
+                    tools:text="₹1.78" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/today_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@{stock.todaydate}"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/t2"
+                    tools:text="14 may" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/today_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@{stock.todayprice}"
+                    android:textColor="@color/light_green_color"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/today_date"
+                    tools:text="$100.60" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
+            tools:itemCount="3"
+            tools:listitem="@layout/list_my_stock" />
+        <!--      <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="visible"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardBackgroundColor="@color/light_black_color"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="@+id/todayCard"
+            app:layout_constraintStart_toStartOf="@+id/materialCardView2"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
+
+          &lt;!&ndash;  <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:lineSpacingExtra="10sp"
-                android:text="Return:₹100.78"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/total_text"
-                app:layout_constraintTop_toBottomOf="@+id/total_text" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/materialCardView3">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/appCompatTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:lineSpacingExtra="10sp"
+                    android:text="Monthly SIP"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    app:layout_constraintBottom_toBottomOf="@+id/switchButton"
+                    app:layout_constraintEnd_toStartOf="@+id/switchButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/Lumpsum_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:lineSpacingExtra="10sp"
+                    android:text="Lumpsum"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    app:layout_constraintBottom_toBottomOf="@+id/switchButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/switchButton"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/filledTextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/enter_something"
+                    app:hintTextColor="@color/light_grey_color"
+                    app:layout_constraintEnd_toEndOf="@+id/Lumpsum_text"
+                    app:layout_constraintStart_toStartOf="@+id/appCompatTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/total_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:lineSpacingExtra="10sp"
+                    android:text="Total Invest:₹99.78"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/switchButton"
+                    app:layout_constraintTop_toBottomOf="@+id/filledTextField" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/return_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:lineSpacingExtra="10sp"
+                    android:text="Return:₹100.78"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/total_text"
+                    app:layout_constraintTop_toBottomOf="@+id/total_text" />
+            </androidx.constraintlayout.widget.ConstraintLayout>&ndash;&gt;
+        </com.google.android.material.card.MaterialCardView>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_circle"
+        app:fabSize="normal"
+        app:fabCustomSize="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:backgroundTint="@color/black_thin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/room_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/element_spacing"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/room_btn_name"
+        app:layout_constraintTop_toTopOf="@+id/fab_add" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

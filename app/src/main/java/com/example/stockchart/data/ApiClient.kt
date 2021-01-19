@@ -1,6 +1,5 @@
 package com.example.stockchart.data
 
-import android.app.Application
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,7 +11,7 @@ val httpClient = OkHttpClient.Builder()
 
     fun getApiService():APIInterface {
         val retrofit = Retrofit.Builder()
-            .baseUrl(APIInterface.FOODIUM_API_URL)
+            .baseUrl(APIInterface.STOCK_API_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient.build())
             .build()

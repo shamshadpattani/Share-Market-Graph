@@ -11,6 +11,6 @@ interface APIInterface {
     suspend fun getData(): Response<Stock>
 
     companion object {
-        const val FOODIUM_API_URL = "https://www.quandl.com/"
+        const val STOCK_API_URL = "https://www.quandl.com/"
     }
 }
