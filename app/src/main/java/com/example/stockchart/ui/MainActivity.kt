@@ -130,11 +130,14 @@ class MainActivity : AppCompatActivity() {
           //invest.addAll(myInvest)
         })
         mainViewModel.livePrice.observe(this,{
-            updateInvestList(invest as List<MyInvestDB>, it[0])
+            if(invest.size!=0)
+              updateInvestList(invest as List<MyInvestDB>, it[0])
         })
 
       mainViewModel.liveInvestData.observe(this,{investData->
-          updateInvestList(investData as List<MyInvestDB>, mainViewModel.livePrice.value?.get(0))
+          if(investData.isNotEmpty()){
+              updateInvestList(investData as List<MyInvestDB>, mainViewModel.livePrice.value?.get(0))
+          }
       })
     }
 
