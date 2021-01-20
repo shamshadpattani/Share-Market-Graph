@@ -10,15 +10,36 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+
     <color name="black_thin">#303030</color>
     <color name="black_light">#2B2B2B</color>
     <color name="black_medium">#1F1F1F</color>
     <color name="black_bold">#1B1C1E</color>
     <color name="white">#FFFFFFFF</color>
+
     <color name="negative_color">#810000</color>
     <color name="negative_color_dark">#570000</color>
     <color name="light_black_color">#1c232e</color>
     <color name="light_grey_color">#545659</color>
     <color name="light_green_color">#79F692</color>
     <color name="dark_green_color">#238035</color>
+
+
+
+    <color name="primaryColor">#1b1c1e</color>
+
+    <color name="primaryLightColor">#424345</color>
+
+    <color name="primaryDarkColor">#000000</color>
+
+    <color name="secondaryColor">#ffc08c</color>
+
+    <color name="secondaryLightColor">#fff3bd</color>
+
+    <color name="secondaryDarkColor">#ca905e</color>
+
+    <color name="primaryTextColor">#ffffff</color>
+
+    <color name="secondaryTextColor">#000000</color>
+
 </resources>

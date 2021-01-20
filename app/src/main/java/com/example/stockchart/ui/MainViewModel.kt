@@ -64,14 +64,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         yesterdayDate.value=dateConversionSrting(_date[1])!!
         yesterdayPrice.value="₹${_price[1]}"
-        priceIncYesterday.value="₹${_price[1].minus(_price[2]).toFloat()}"
-        percentYest.value="%${String.format("%.3f",((_price[1].minus(_price[2]).toFloat()).div(_price[2])).times(100))}"
+        priceIncYesterday.value="₹${String.format("%.2f",_price[1].minus(_price[2]).toFloat())}"
+        percentYest.value="${String.format("%.2f",((_price[1].minus(_price[2]).toFloat()).div(_price[2])).times(100))}%"
         percentIncValYest.value=_price[1].minus(_price[2]).toFloat()
 
         todaydate.value = dateConversionSrting(_date[0])!!
         todayprice.value="₹${_price[0]}"
-        todayPriceIncr.value="₹${_price[0].minus(_price[1]).toFloat()}"
-        todayPercentage.value="%${String.format("%.3f",((_price[0].minus(_price[1]).toFloat()).div(_price[1])).times(100))}"
+        todayPriceIncr.value="₹${String.format("%.2f",_price[0].minus(_price[1]).toFloat())}"
+        todayPercentage.value="${String.format("%.2f",((_price[0].minus(_price[1]).toFloat()).div(_price[1])).times(100))}%"
         todayIncVal.value=_price[0].minus(_price[1]).toFloat()
 
         stockvalues.value= Pair(dateConversion(_date.reversed()),_price.reversed())

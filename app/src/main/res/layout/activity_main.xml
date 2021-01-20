@@ -14,7 +14,7 @@
 <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="50dp">
+    android:layout_marginBottom="55dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -172,7 +172,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:rotation="1"
                     android:text="@string/yesterday_text_head"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/white"
@@ -194,7 +193,6 @@
                     android:textSize="14sp"
                     android:typeface="sans"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/t1"
                     app:layout_constraintTop_toTopOf="@+id/yesterday_date"
                     tools:text="+2.3%" />
 
@@ -269,7 +267,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:rotation="1"
                     android:text="@string/to_day_text_head"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/white"

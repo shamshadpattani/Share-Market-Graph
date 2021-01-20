@@ -192,7 +192,6 @@ class MainActivity : AppCompatActivity() {
         val isDebug: Boolean = this.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
         if (!isDebug) return
 
-
         room_btn.setOnClickListener {
             RoomExplorer.show(this, StockDatabase::class.java, EntityDescriptions.DB_NAME)
         }
