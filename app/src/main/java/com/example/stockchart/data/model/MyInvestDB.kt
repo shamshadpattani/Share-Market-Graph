@@ -15,9 +15,9 @@ import java.time.format.DateTimeFormatter
 )
 data class MyInvestDB(
     var invest_date: String,
-    var invest_price: String?,
+    var invest_price: String,
     var unit: String,
-    var nav: Double?,
+    var nav: Double,
 
 ){
     @PrimaryKey(autoGenerate = true)

@@ -1,11 +1,14 @@
 package com.example.stockchart.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.stockchart.R
 import com.example.stockchart.databinding.ActivityAddInvestBinding
@@ -60,7 +63,22 @@ class AddInvestFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        //subscribe()
+       subscribe()
+    }
+
+    private fun subscribe() {
+        viewModel.dataError.observe(viewLifecycleOwner, {error->
+            if(error){
+                unit.setTextColor(ContextCompat.getColor(context!!,R.color.design_default_color_error))
+                viewModel.seletedDate.postValue(null)
+            }
+        })
+
+        viewModel.dismissDialog.observe(viewLifecycleOwner,{dismiss ->
+            if(dismiss) {
+                dismiss()
+            }
+        })
     }
 
     private fun init() {
@@ -86,7 +104,7 @@ class AddInvestFragment : BottomSheetDialogFragment() {
 
         }
         problem_cancel_btn.setOnClickListener {
-           // viewModel.discardChanges()
+           viewModel.discardChanges()
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.stockchart.data.room.dao
 
 import android.icu.text.IDNA
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.stockchart.data.model.Info
 import com.example.stockchart.data.room.EntityDescriptions
@@ -24,5 +25,8 @@ abstract class StockInfoDao {
 
     @Query("SELECT * FROM ${EntityDescriptions.TABLE_INFO} WHERE date = :id")
     abstract fun getPrice(id: String): Info?
+
+    @Query("SELECT * FROM ${EntityDescriptions.TABLE_INFO} ")
+    abstract fun getPriceLive(): LiveData<List<Info?>>
 
 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.animation.SlideInBottomAnimation
 import com.example.stockchart.R
 import com.example.stockchart.data.model.Dataset
+import com.example.stockchart.data.model.Info
 import com.example.stockchart.data.model.MyInvest
 import com.example.stockchart.data.model.MyInvestDB
 import com.example.stockchart.data.room.EntityDescriptions
@@ -123,24 +124,34 @@ class MainActivity : AppCompatActivity() {
                 today_price_incr.setTextColor(ContextCompat.getColor(this,R.color.dark_green_color))
             }
         })
-        investViewModel.myInvestDB.observe(this, Observer { myInvest->
-            //updateInvestList(myInvest as List<MyInvestDB>)
-            invest.addAll(myInvest)
+        mainViewModel.myInvestDB.observe(this, Observer { myInvest->
+           invest.clear()
+           mainViewModel.getDataPrice(myInvest)
+          //invest.addAll(myInvest)
         })
-        mainViewModel.todaypriceInDec.observe(this, Observer {
-            updateInvestList(invest,it)
+        mainViewModel.livePrice.observe(this,{
+            updateInvestList(invest as List<MyInvestDB>, it[0])
         })
+
+      mainViewModel.liveInvestData.observe(this,{investData->
+          updateInvestList(investData as List<MyInvestDB>, mainViewModel.livePrice.value?.get(0))
+      })
     }
 
-    private fun updateInvestList(myInvestDB: List<MyInvestDB>, d: Double) {
+    private fun updateInvestList(myInvestDB: List<MyInvestDB>, liveinfo: Info?) {
+        if (liveinfo!=null)
+        {
         updateInvest.clear()
+        var d = liveinfo?.price
         myInvestDB.map { myInv ->
-            val my_price = String.format("%.3f",d.times(myInv.unit.toDouble()))
-            val price_diff= String.format("%.2f",myInv.invest_price!!.toDouble()?.let { my_price.toDouble().minus(it) })
-            val inv= MyInvest(my_price =my_price.toDouble(),invest_price = myInv.invest_price,invest_date = myInv.invest_date,
-                    unit = myInv.unit,nav = myInv.nav,price_diff = price_diff.toDouble())
-            updateInvest?.add(inv)
-            mAdapter.updateItems(updateInvest)
+                val my_price = String.format("%.3f", d?.times(myInv.unit.toDouble()))
+                val price_diff = String.format("%.2f", myInv.invest_price!!.toDouble()?.let { my_price.toDouble().minus(it) })
+                val inv = MyInvest(my_price = my_price.toDouble(), invest_price = myInv.invest_price, invest_date = myInv.invest_date,
+                        unit = myInv.unit, nav = myInv.nav, price_diff = price_diff.toDouble())
+                updateInvest?.add(inv)
+            mAdapter.updateItems(updateInvest.asReversed())
+        }
+
         }
     }
 

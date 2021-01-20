@@ -13,7 +13,7 @@ import java.time.LocalDate
 class InvestViewModel(application: Application) : AndroidViewModel(application) {
 
     val amount: MutableLiveData<String> = MutableLiveData()
-    val now_amount: MutableLiveData<String> = MutableLiveData()
+
     val unit: MutableLiveData<String> = MutableLiveData()
     val seletedDate: MutableLiveData<LocalDate> = MutableLiveData()
     var info: Info? = null
@@ -22,23 +22,32 @@ class InvestViewModel(application: Application) : AndroidViewModel(application) 
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
 
-    private val _todayprices= MutableLiveData<Double>()
-    val todayprices: LiveData<Double> = _todayprices
-    val myInvestDB : LiveData<List<MyInvestDB>> = stockRepo.getsaveInvest()
+    private val _dataError = MutableLiveData<Boolean>()
+    val dataError: LiveData<Boolean> = _dataError
+
+    private val _savedata = MutableLiveData<Boolean>()
+    val savedata: LiveData<Boolean> = _savedata
+
+    private val _dismissDialog = MutableLiveData<Boolean>(false)
+    val dismissDialog: LiveData<Boolean> = _dismissDialog
+
 
     private fun getInvest() {
         val myInDB: MyInvestDB? =
             MyInvestDB(
-                nav = info?.price,
-                invest_price = amount.value,
+                nav = info!!.price,
+                invest_price = amount.value!!,
                 invest_date = seletedDate.value.toString(),
-                unit = unit.value.toString()
+                unit = unit?.value.toString()
             )
-        val inv: MutableList<MyInvestDB> = mutableListOf()
         if (myInDB != null) {
-            inv.add(myInDB)
             viewModelScope.launch(Dispatchers.IO) {
-                stockRepo.saveInvest(myInDB)
+                val i = stockRepo.saveInvest(myInDB)
+                if(i!=null){
+                    _savedata.postValue(true)
+                }else{
+                    _savedata.postValue(false)
+                }
             }
         }
     }
@@ -49,20 +58,23 @@ class InvestViewModel(application: Application) : AndroidViewModel(application) 
             info = stockRepo.getPriceFromDB(seletedDate.value.toString())
             withContext(Dispatchers.Main) {
                 // call to UI thread
-                unit.value = String.format("%.2f", (info?.price?.let { purchaseAmount.div(it) }))
-                now_amount.value = unit.value?.let { it1 -> todayprices.value?.times(it1?.toDouble()).toString() }
-                getInvest()
+                if(info?.price!=null) {
+                    unit.value = String.format("%.2f", (info?.price?.let { purchaseAmount.div(it) }))
+                    getInvest()
+                    _dismissDialog.postValue(true)
+                }else{
+                    unit.value ="No value found please select a better date"
+                    _dataError.postValue(true)
+                }
             }
         }
 
     }
 
     fun discardChanges() {
-        TODO("Not yet implemented")
+        _dismissDialog.postValue(true)
     }
 
-    fun todaypricefun(second: Double) {
-        _todayprices.value=second
-    }
+
 }
 

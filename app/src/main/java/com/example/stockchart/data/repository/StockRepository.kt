@@ -35,6 +35,9 @@ class StockRepository (c: Application) {
     fun getPriceFromDB(it: String): Info? {
         return db.getPrice(it)
     }
+    fun getPriceFromDBLive(): LiveData<List<Info?>> {
+        return db.getPriceLive()
+    }
 
     fun saveInvest(myInDB: MyInvestDB): Long {
         val inputDb = investDb.insert(myInDB)
