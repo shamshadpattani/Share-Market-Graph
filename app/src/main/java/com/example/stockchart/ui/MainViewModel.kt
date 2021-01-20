@@ -36,6 +36,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val todayPercentage : MutableLiveData<String> = MutableLiveData()
     val todayIncVal : MutableLiveData<Float> = MutableLiveData()
 
+    val totalInvest : MutableLiveData<Double> = MutableLiveData()
+    val totalProfit : MutableLiveData<Double> = MutableLiveData()
+    val totalAmount : MutableLiveData<Double> = MutableLiveData()
 
     val myInvestDB : LiveData<List<MyInvestDB>> = stockRepo.getsaveInvest()
     var livePrice: LiveData<List<Info?>> = stockRepo.getPriceFromDBLive()

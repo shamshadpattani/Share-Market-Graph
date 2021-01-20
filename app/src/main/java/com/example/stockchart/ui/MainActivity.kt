@@ -115,6 +115,7 @@ class MainActivity : AppCompatActivity() {
                 priceIncYday.setTextColor(ContextCompat.getColor(this,R.color.dark_green_color))
             }
         })
+
         mainViewModel.todayIncVal.observe(this, Observer { ty->
             if(ty<0.0){
                 today_price_incr.setTextColor(ContextCompat.getColor(this,R.color.negative_color))

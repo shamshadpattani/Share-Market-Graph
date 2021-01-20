@@ -177,6 +177,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:typeface="sans"
+                    android:layout_marginTop="@dimen/element_spacing"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -272,6 +273,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:typeface="sans"
+                    android:layout_marginTop="@dimen/element_spacing"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

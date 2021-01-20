@@ -13,4 +13,8 @@
     <string name="date_text">date</string>
     <string name="unit_dummy">Unit:2.40</string>
     <string name="room_btn_name">ROOM</string>
+
+    <string name="total_investment_head">Total Invest</string>
+    <string name="retun_head">Profit</string>
+    <string name="full_profit">Total</string>
 </resources>
