@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="head"
+            type="com.example.stockchart.ui.MainViewModel"/>
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/element_spacing"
+        android:layout_marginEnd="@dimen/element_spacing"
+        app:cardBackgroundColor="@color/light_black_color"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectorGroup">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/total_invest_amount_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="@dimen/element_spacing"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/total_investment_head"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/total_invest_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="14sp"
+                android:text="@{head.totalInvest}"
+                android:layout_marginTop="@dimen/line_spacing"
+                app:layout_constraintStart_toStartOf="@+id/total_invest_amount_head"
+                app:layout_constraintTop_toBottomOf="@+id/total_invest_amount_head"
+                tools:text="₹100.60" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/return_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/retun_head"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/total_return_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textColor="@color/light_green_color"
+                android:textSize="14sp"
+                android:layout_marginTop="@dimen/line_spacing"
+                android:text="@{head.totalProfit}"
+                app:layout_constraintEnd_toEndOf="@+id/return_head"
+                app:layout_constraintStart_toStartOf="@+id/return_head"
+                app:layout_constraintTop_toBottomOf="@+id/total_invest_amount_head"
+                tools:text="₹100.60" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/total_profit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/full_profit"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_marginEnd="@dimen/line_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/total_profit_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_spacing"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textColor="@color/light_green_color"
+                android:textSize="14sp"
+                android:text="@{head.totalAmount}"
+                app:layout_constraintEnd_toEndOf="@+id/total_profit"
+                app:layout_constraintStart_toStartOf="@+id/total_profit"
+                app:layout_constraintTop_toBottomOf="@+id/total_invest_amount_head"
+                tools:text="₹100.60"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
