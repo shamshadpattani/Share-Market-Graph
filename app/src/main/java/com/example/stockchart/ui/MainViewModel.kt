@@ -3,10 +3,13 @@ package com.example.stockchart.ui
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.stockchart.data.model.Info
+import com.example.stockchart.data.model.MyInvest
 import com.example.stockchart.data.model.MyInvestDB
 import com.example.stockchart.data.model.Stock
 import com.example.stockchart.data.repository.StockRepository
 import com.example.stockchart.data.utlis.ResultOf
+import com.example.stockchart.utlis.CommonUtils.dateConversion
+import com.example.stockchart.utlis.CommonUtils.dateConversionSrting
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -43,20 +46,36 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val myInvestDB : LiveData<List<MyInvestDB>> = stockRepo.getsaveInvestLive()
 
 
+    var my_price : MutableLiveData<String> = MutableLiveData()
+    var price_diff : MutableLiveData<String> = MutableLiveData()
+
     var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
 
-    private val _liveInvestData = MutableLiveData<List<MyInvestDB?>>()
+    private val _myInvestListData = MutableLiveData<List<MyInvest>>()
+    val myInvestListData:LiveData<List<MyInvest>> =_myInvestListData
 
-
-    val liveUpdate = Transformations.switchMap(myInvestDB) {
-        stockRepo.getPriceFromDBLive()
+    /**
+     * every time myInvestDB updated
+     * it call stockRepo.getPriceFromDBLive()
+     * [return] livedata
+    **/
+    val liveTodayPrice = Transformations.switchMap(myInvestDB) {
+       stockRepo.getPriceFromDBLive()
     }
 
-    fun getDataPrice(myInvest: List<MyInvestDB>) {
-        _liveInvestData.postValue(myInvest)
+    fun updateInvestList() {
+        var inv:MutableList<MyInvest> = mutableListOf()
+        myInvestDB.value?.map { myInv ->
+            my_price.value = String.format("%.3f", liveTodayPrice.value?.times(myInv.unit.toDouble()))
+            price_diff.value = String.format("%.2f", myInv.invest_price.toDouble().let { my_price.value!!.toDouble().minus(it) })
+          inv.add(MyInvest(my_price = my_price.value!!.toDouble(),
+                    invest_price = myInv.invest_price,
+                    invest_date = myInv.invest_date,
+                    unit = myInv.unit, nav = myInv.nav,
+                    price_diff = price_diff.value?.toDouble()!!))
+        }
+        _myInvestListData.postValue(inv)
     }
-
-
     fun setData(data: List<List<Any>>, i: Int) {
         val _price:MutableList<Double> = mutableListOf()
         val _date:MutableList<String> = mutableListOf()
@@ -102,30 +121,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
 
-    private fun dateConversion(date: List<String>): List<String> {
-        val formattedDate: MutableList<String> = mutableListOf()
-        date.map {
-            try {
-                val parser = SimpleDateFormat("yyyy-MM-d", Locale.ROOT)
-                val formatter = SimpleDateFormat("dd MMM", Locale.ROOT)
-                formattedDate.add(formatter.format(parser.parse(it)))
-            } catch(e: ParseException) {
-                listOf("")
-            }
-        }
-       return formattedDate
-    }
-    private fun dateConversionSrting(date:String): String? {
-        var formattedDate:String?=null
-        try{
-                val parser = SimpleDateFormat("yyyy-MM-d", Locale.ROOT)
-                val formatter = SimpleDateFormat("dd MMM", Locale.ROOT)
-                formattedDate=formatter.format(parser.parse(date))
-            } catch(e: ParseException) {
-               ""
-            }
-        return formattedDate
-    }
+
+
+
 
     private val _fundDetails = MutableLiveData<Stock>()
     val fundDetails: LiveData<Stock>

@@ -14,6 +14,4 @@ data class MyInvest(
     var nav: Double?,
     var my_price: Double?,
     var price_diff:Double
-){
-
-}
+)

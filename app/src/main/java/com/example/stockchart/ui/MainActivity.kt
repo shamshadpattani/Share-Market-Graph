@@ -2,16 +2,22 @@ package com.example.stockchart.ui
 
 import android.annotation.SuppressLint
 import android.content.pm.ApplicationInfo
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.animation.SlideInBottomAnimation
+import com.chad.library.adapter.base.listener.OnItemSwipeListener
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.stockchart.R
 import com.example.stockchart.data.model.Dataset
 import com.example.stockchart.data.model.MyInvest
@@ -24,6 +30,7 @@ import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.google.android.material.button.MaterialButton
 import com.wajahatkarim3.roomexplorer.RoomExplorer
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
      private val updateInvest: MutableList<MyInvest> = mutableListOf()
@@ -55,11 +62,37 @@ class MainActivity : AppCompatActivity() {
         mAdapter = InvestQuickAdapter(mutableListOf())
         recycler_view.adapter = mAdapter
         mAdapter.apply {
-            animationEnable = false
+            animationEnable = true
             adapterAnimation = SlideInBottomAnimation()
-            isAnimationFirstOnly = true
-
+            isAnimationFirstOnly = false
         }
+        val onItemSwipeListener: OnItemSwipeListener = object : OnItemSwipeListener {
+            override fun onItemSwipeStart(viewHolder: RecyclerView.ViewHolder, pos: Int) {
+                Log.d("TAG", "view swiped start: $pos")
+                Toast.makeText(this@MainActivity, "view swiped start: $pos", Toast.LENGTH_SHORT).show()
+                val holder = viewHolder as BaseViewHolder
+            }
+
+            override fun clearView(viewHolder: RecyclerView.ViewHolder, pos: Int) {
+                Log.d("TAG", "View reset: $pos")
+                Toast.makeText(this@MainActivity, "View reset: $pos", Toast.LENGTH_SHORT).show()
+                val holder = viewHolder as BaseViewHolder
+            }
+
+            override fun onItemSwiped(viewHolder: RecyclerView.ViewHolder, pos: Int) {
+                Log.d("TAG", "View Swiped: $pos")
+                Toast.makeText(this@MainActivity, "View Swiped: $pos", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onItemSwipeMoving(canvas: Canvas, viewHolder: RecyclerView.ViewHolder?, dX: Float, dY: Float, isCurrentlyActive: Boolean) {
+                canvas.drawColor(ContextCompat.getColor(this@MainActivity, R.color.light_green_color))
+            }
+        }
+
+        mAdapter.draggableModule.isSwipeEnabled = true
+
+        mAdapter.draggableModule.setOnItemSwipeListener(onItemSwipeListener)
+        mAdapter.draggableModule.itemTouchHelperCallback.setSwipeMoveFlags(ItemTouchHelper.START)
     }
 
     private fun showAddDialog() {
@@ -75,7 +108,7 @@ class MainActivity : AppCompatActivity() {
             if (checkedButton != null) {
                 if (isChecked) {
                     Toast.makeText(this, "checked${checkedButton.text}", Toast.LENGTH_SHORT).show()
-                    mainViewModel.setvalues(checkedButton.text.toString(),dat)
+                    mainViewModel.setvalues(checkedButton.text.toString(), dat)
                 }else{
 
                 }
@@ -85,6 +118,8 @@ class MainActivity : AppCompatActivity() {
             showAddDialog()
         }
         initDebugTools()
+
+
     }
 
 
@@ -98,51 +133,42 @@ class MainActivity : AppCompatActivity() {
     private fun observer() {
         mainViewModel.fundDetails.observe(this, { stock ->
             showTitles(stock.dataset)
-            dat=stock.dataset.data
-            mainViewModel.setData(dat,5)
+            dat = stock.dataset.data
+            mainViewModel.setData(dat, 5)
         })
 
         mainViewModel.stockvalues.observe(this, { values ->
             setmap(values.second, values.first)
         })
-        mainViewModel.percentIncValYest.observe(this, Observer { py->
-            if(py<0.0){
-                percentYstrday.setTextColor(ContextCompat.getColor(this,R.color.negative_color))
-                priceIncYday.setTextColor(ContextCompat.getColor(this,R.color.negative_color))
-            }else{
-                percentYstrday.setTextColor(ContextCompat.getColor(this,R.color.light_green_color))
-                priceIncYday.setTextColor(ContextCompat.getColor(this,R.color.dark_green_color))
+        mainViewModel.percentIncValYest.observe(this, Observer { py ->
+            if (py < 0.0) {
+                percentYstrday.setTextColor(ContextCompat.getColor(this, R.color.negative_color))
+                priceIncYday.setTextColor(ContextCompat.getColor(this, R.color.negative_color))
+            } else {
+                percentYstrday.setTextColor(ContextCompat.getColor(this, R.color.light_green_color))
+                priceIncYday.setTextColor(ContextCompat.getColor(this, R.color.dark_green_color))
             }
         })
 
-        mainViewModel.todayIncVal.observe(this, Observer { ty->
-            if(ty<0.0){
-                today_price_incr.setTextColor(ContextCompat.getColor(this,R.color.negative_color))
-                today_percentage.setTextColor(ContextCompat.getColor(this,R.color.negative_color))
-            }else{
-                today_percentage.setTextColor(ContextCompat.getColor(this,R.color.light_green_color))
-                today_price_incr.setTextColor(ContextCompat.getColor(this,R.color.dark_green_color))
+        mainViewModel.todayIncVal.observe(this, Observer { ty ->
+            if (ty < 0.0) {
+                today_price_incr.setTextColor(ContextCompat.getColor(this, R.color.negative_color))
+                today_percentage.setTextColor(ContextCompat.getColor(this, R.color.negative_color))
+            } else {
+                today_percentage.setTextColor(ContextCompat.getColor(this, R.color.light_green_color))
+                today_price_incr.setTextColor(ContextCompat.getColor(this, R.color.dark_green_color))
             }
         })
 
 
-        mainViewModel.liveUpdate.observe(this,{
-                mainViewModel.myInvestDB.value?.let { it1 -> updateInvestList(it1, it) }
+        mainViewModel.liveTodayPrice.observe(this, {
+            mainViewModel.updateInvestList()
+        })
+
+        mainViewModel.myInvestListData.observe(this, {
+            mAdapter.updateItems(it.toMutableList().asReversed())
         })
     }
-
-    private fun updateInvestList(myInvestDB: List<MyInvestDB>, d: Double?) {
-        updateInvest.clear()
-        myInvestDB.map { myInv ->
-                val my_price = String.format("%.3f", d?.times(myInv.unit.toDouble()))
-                val price_diff = String.format("%.2f", myInv.invest_price!!.toDouble()?.let { my_price.toDouble().minus(it) })
-                val inv = MyInvest(my_price = my_price.toDouble(), invest_price = myInv.invest_price, invest_date = myInv.invest_date,
-                        unit = myInv.unit, nav = myInv.nav, price_diff = price_diff.toDouble())
-                updateInvest?.add(inv)
-            mAdapter.updateItems(updateInvest.asReversed())
-        }
-
-        }
 
     private fun setmap(dataset: List<Double>, date: List<String>) {
             aaChartModel.chartType(AAChartType.Areaspline)
