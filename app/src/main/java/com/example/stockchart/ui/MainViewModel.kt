@@ -41,14 +41,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val totalAmount : MutableLiveData<Double> = MutableLiveData()
 
     val myInvestDB : LiveData<List<MyInvestDB>> = stockRepo.getsaveInvestLive()
-  //  var livePrice: LiveData<Double> = stockRepo.getPriceFromDBLive()
+
 
     var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
 
     private val _liveInvestData = MutableLiveData<List<MyInvestDB?>>()
-    val liveInvestData: LiveData<List<MyInvestDB?>> = _liveInvestData
 
-    val livePrice = Transformations.switchMap(myInvestDB) {
+
+    val liveUpdate = Transformations.switchMap(myInvestDB) {
         stockRepo.getPriceFromDBLive()
     }
 

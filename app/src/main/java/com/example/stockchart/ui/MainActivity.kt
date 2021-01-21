@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        mainViewModel.livePrice.observe(this,{
+        mainViewModel.liveUpdate.observe(this,{
                 mainViewModel.myInvestDB.value?.let { it1 -> updateInvestList(it1, it) }
         })
     }
