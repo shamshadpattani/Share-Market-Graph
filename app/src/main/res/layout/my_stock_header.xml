@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
+<!--    <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView2"
         android:layout_width="0dp"
         android:layout_height="80dp"
@@ -113,6 +113,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/total_invest_amount_head"
                 tools:text="₹100.60"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

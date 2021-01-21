@@ -1,6 +1,5 @@
 package com.example.stockchart.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.stockchart.R
 import com.example.stockchart.databinding.ActivityAddInvestBinding
@@ -98,7 +96,7 @@ class AddInvestFragment : BottomSheetDialogFragment() {
                     binding.inputamount.error="must be fill it"
                 }
                 else -> {
-                    viewModel.saveProblem()
+                    viewModel.saveUserInvest()
                 }
             }
 

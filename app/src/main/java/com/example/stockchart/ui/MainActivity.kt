@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.animation.SlideInBottomAnimation
 import com.example.stockchart.R
 import com.example.stockchart.data.model.Dataset
-import com.example.stockchart.data.model.Info
 import com.example.stockchart.data.model.MyInvest
 import com.example.stockchart.data.model.MyInvestDB
 import com.example.stockchart.data.room.EntityDescriptions
@@ -125,28 +124,15 @@ class MainActivity : AppCompatActivity() {
                 today_price_incr.setTextColor(ContextCompat.getColor(this,R.color.dark_green_color))
             }
         })
-        mainViewModel.myInvestDB.observe(this, Observer { myInvest->
-           invest.clear()
-           mainViewModel.getDataPrice(myInvest)
-          //invest.addAll(myInvest)
-        })
-        mainViewModel.livePrice.observe(this,{
-            if(invest.size!=0)
-              updateInvestList(invest as List<MyInvestDB>, it[0])
-        })
 
-      mainViewModel.liveInvestData.observe(this,{investData->
-          if(investData.isNotEmpty()){
-              updateInvestList(investData as List<MyInvestDB>, mainViewModel.livePrice.value?.get(0))
-          }
-      })
+
+        mainViewModel.livePrice.observe(this,{
+                mainViewModel.myInvestDB.value?.let { it1 -> updateInvestList(it1, it) }
+        })
     }
 
-    private fun updateInvestList(myInvestDB: List<MyInvestDB>, liveinfo: Info?) {
-        if (liveinfo!=null)
-        {
+    private fun updateInvestList(myInvestDB: List<MyInvestDB>, d: Double?) {
         updateInvest.clear()
-        var d = liveinfo?.price
         myInvestDB.map { myInv ->
                 val my_price = String.format("%.3f", d?.times(myInv.unit.toDouble()))
                 val price_diff = String.format("%.2f", myInv.invest_price!!.toDouble()?.let { my_price.toDouble().minus(it) })
@@ -157,7 +143,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         }
-    }
 
     private fun setmap(dataset: List<Double>, date: List<String>) {
             aaChartModel.chartType(AAChartType.Areaspline)

@@ -23,6 +23,8 @@ abstract class InvestDao {
     abstract fun insert(summary: MyInvestDB): Long
 
     @Query("SELECT * FROM ${EntityDescriptions.TABLE_INVEST} ")
-    abstract fun getInvest(): LiveData<List<MyInvestDB>>
+    abstract fun getInvestLive(): LiveData<List<MyInvestDB>>
 
+    @Query("SELECT * FROM ${EntityDescriptions.TABLE_INVEST} ")
+    abstract fun getInvest(): List<MyInvestDB>
 }

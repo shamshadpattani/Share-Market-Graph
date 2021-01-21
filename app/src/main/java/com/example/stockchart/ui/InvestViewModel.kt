@@ -25,8 +25,8 @@ class InvestViewModel(application: Application) : AndroidViewModel(application) 
     private val _dataError = MutableLiveData<Boolean>()
     val dataError: LiveData<Boolean> = _dataError
 
-    private val _savedata = MutableLiveData<Boolean>()
-    val savedata: LiveData<Boolean> = _savedata
+    private val _saveInvestDB = MutableLiveData<List<MyInvestDB>>()
+    val saveInvestDB : LiveData<List<MyInvestDB>> = _saveInvestDB
 
     private val _dismissDialog = MutableLiveData<Boolean>(false)
     val dismissDialog: LiveData<Boolean> = _dismissDialog
@@ -43,16 +43,13 @@ class InvestViewModel(application: Application) : AndroidViewModel(application) 
         if (myInDB != null) {
             viewModelScope.launch(Dispatchers.IO) {
                 val i = stockRepo.saveInvest(myInDB)
-                if(i!=null){
-                    _savedata.postValue(true)
-                }else{
-                    _savedata.postValue(false)
-                }
+                _saveInvestDB.postValue(stockRepo.getsaveInvest())
             }
+
         }
     }
 
-    fun saveProblem() {
+    fun saveUserInvest() {
         val purchaseAmount = amount.value!!.toDouble()
         viewModelScope.launch(Dispatchers.IO) {
             info = stockRepo.getPriceFromDB(seletedDate.value.toString())

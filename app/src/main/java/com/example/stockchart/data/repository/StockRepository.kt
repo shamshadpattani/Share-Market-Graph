@@ -27,7 +27,7 @@ class StockRepository (c: Application) {
         }.asFlow().flowOn(Dispatchers.IO)
     }
 
-    fun savedbdata(info: Info): Long {
+    fun saveStockDetailsdata(info: Info): Long {
         val inputDb = db.insert(info)
         return inputDb
     }
@@ -35,7 +35,7 @@ class StockRepository (c: Application) {
     fun getPriceFromDB(it: String): Info? {
         return db.getPrice(it)
     }
-    fun getPriceFromDBLive(): LiveData<List<Info?>> {
+    fun getPriceFromDBLive(): LiveData<Double> {
         return db.getPriceLive()
     }
 
@@ -44,7 +44,10 @@ class StockRepository (c: Application) {
         return inputDb
     }
 
-    fun getsaveInvest(): LiveData<List<MyInvestDB>> {
+    fun getsaveInvestLive(): LiveData<List<MyInvestDB>> {
+        return investDb.getInvestLive()
+    }
+    fun getsaveInvest(): List<MyInvestDB> {
         return investDb.getInvest()
     }
 }

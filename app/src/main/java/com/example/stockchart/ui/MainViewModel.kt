@@ -40,16 +40,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val totalProfit : MutableLiveData<Double> = MutableLiveData()
     val totalAmount : MutableLiveData<Double> = MutableLiveData()
 
-    val myInvestDB : LiveData<List<MyInvestDB>> = stockRepo.getsaveInvest()
-    var livePrice: LiveData<List<Info?>> = stockRepo.getPriceFromDBLive()
+    val myInvestDB : LiveData<List<MyInvestDB>> = stockRepo.getsaveInvestLive()
+  //  var livePrice: LiveData<Double> = stockRepo.getPriceFromDBLive()
 
     var stockvalues = MutableLiveData<Pair<List<String>, List<Double>>> ()
 
     private val _liveInvestData = MutableLiveData<List<MyInvestDB?>>()
     val liveInvestData: LiveData<List<MyInvestDB?>> = _liveInvestData
+
+    val livePrice = Transformations.switchMap(myInvestDB) {
+        stockRepo.getPriceFromDBLive()
+    }
+
     fun getDataPrice(myInvest: List<MyInvestDB>) {
         _liveInvestData.postValue(myInvest)
     }
+
 
     fun setData(data: List<List<Any>>, i: Int) {
         val _price:MutableList<Double> = mutableListOf()
@@ -88,7 +94,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 info = Info(values[0] as String, values[1] as Double)
             }
             viewModelScope.launch(Dispatchers.IO) {
-                val i = info?.let { stockRepo.savedbdata(it) }
+                val i = info?.let { stockRepo.saveStockDetailsdata(it) }
             }
         }
     }

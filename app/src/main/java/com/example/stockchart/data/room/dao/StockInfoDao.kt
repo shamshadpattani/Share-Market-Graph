@@ -26,7 +26,7 @@ abstract class StockInfoDao {
     @Query("SELECT * FROM ${EntityDescriptions.TABLE_INFO} WHERE date = :id")
     abstract fun getPrice(id: String): Info?
 
-    @Query("SELECT * FROM ${EntityDescriptions.TABLE_INFO} ")
-    abstract fun getPriceLive(): LiveData<List<Info?>>
+    @Query("SELECT price FROM ${EntityDescriptions.TABLE_INFO}  ORDER BY  date DESC LIMIT 1")
+    abstract fun getPriceLive(): LiveData<Double>
 
 }
