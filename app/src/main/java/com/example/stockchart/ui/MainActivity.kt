@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("TAG", "View reset: $pos")
                 Toast.makeText(this@MainActivity, "View reset: $pos", Toast.LENGTH_SHORT).show()
                 val holder = viewHolder as BaseViewHolder
+                //holder.
             }
 
             override fun onItemSwiped(viewHolder: RecyclerView.ViewHolder, pos: Int) {
