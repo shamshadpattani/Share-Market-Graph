@@ -56,7 +56,7 @@ class InvestViewModel(application: Application) : AndroidViewModel(application) 
             withContext(Dispatchers.Main) {
                 // call to UI thread
                 if(info?.price!=null) {
-                    unit.value = String.format("%.2f", (info?.price?.let { purchaseAmount.div(it) }))
+                    unit.value = String.format("%.3f", (info?.price?.let { purchaseAmount.div(it) }))
                     getInvest()
                     _dismissDialog.postValue(true)
                 }else{

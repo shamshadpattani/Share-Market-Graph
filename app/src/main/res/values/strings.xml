@@ -16,5 +16,6 @@
 
     <string name="total_investment_head">Total Invest</string>
     <string name="retun_head">Profit</string>
-    <string name="full_profit">Total</string>
+    <string name="full_profit">Current Value</string>
+    <string name="unit">Unit</string>
 </resources>

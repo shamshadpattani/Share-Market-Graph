@@ -40,10 +40,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val todayPercentage : MutableLiveData<String> = MutableLiveData()
     val todayIncVal : MutableLiveData<Float> = MutableLiveData()
 
-    val totalInvest : MutableLiveData<Double> = MutableLiveData()
-    val totalProfit : MutableLiveData<Double> = MutableLiveData()
-    val totalAmount : MutableLiveData<Double> = MutableLiveData()
-
+    val totalInvest : MutableLiveData<String> = MutableLiveData()
+    val totalUnit : MutableLiveData<String> = MutableLiveData()
+    val totalProfit : MutableLiveData<String> = MutableLiveData()
+    val totalAmount : MutableLiveData<String> = MutableLiveData()
+    val todaydateMap : MutableLiveData<String> = MutableLiveData()
     val myInvestDB : LiveData<List<MyInvestDB>> = stockRepo.getsaveInvestLive()
 
 
@@ -65,10 +66,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun updateInvestList() {
+        totalAmount.value=0.0.toString()
+        totalProfit.value=0.0.toString()
+        totalInvest.value=0.0.toString()
+        totalUnit.value=0.0.toString()
+        todaydateMap.value="As On ${todaydate.value}"
         var inv:MutableList<MyInvest> = mutableListOf()
         myInvestDB.value?.map { myInv ->
             my_price.value = String.format("%.3f", liveTodayPrice.value?.times(myInv.unit.toDouble()))
             price_diff.value = String.format("%.2f", myInv.invest_price.toDouble().let { my_price.value!!.toDouble().minus(it) })
+
+            totalAmount.value = my_price.value!!.toDouble().plus(totalAmount.value?.toDouble()!!).toString()
+            totalUnit.value = String.format("%.3f",totalUnit.value!!.toDouble().plus(myInv.unit.toDouble()))
+            totalProfit.value = String.format("%.3f",totalProfit.value!!.toDouble().plus(price_diff.value!!.toDouble()))
+            totalInvest.value=String.format("%.2f",totalInvest.value!!.toDouble().plus(myInv.invest_price.toDouble()))
+
           inv.add(MyInvest(my_price = my_price.value!!.toDouble(),
                     invest_price = myInv.invest_price,
                     invest_date = myInv.invest_date,

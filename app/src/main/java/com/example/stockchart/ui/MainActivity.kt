@@ -105,7 +105,6 @@ class MainActivity : AppCompatActivity() {
             val checkedButton: MaterialButton? = group.findViewById(group.checkedButtonId)
             if (checkedButton != null) {
                 if (isChecked) {
-                    Toast.makeText(this, "checked${checkedButton.text}", Toast.LENGTH_SHORT).show()
                     mainViewModel.setvalues(checkedButton.text.toString(), dat)
                 }else{
 
@@ -128,7 +127,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun observer() {
         mainViewModel.fundDetails.observe(this, { stock ->
-            showTitles(stock.dataset)
+          //  showTitles(stock.dataset)
             dat = stock.dataset.data
             mainViewModel.setData(dat, 5)
         })

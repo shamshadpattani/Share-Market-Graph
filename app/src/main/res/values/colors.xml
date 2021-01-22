@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3E80AE</color>
     <color name="colorPrimaryLight">#6ea8d0</color>
     <color name="colorPrimaryLighter">#b8d9f0</color>
+    <color name="colorPrimaryLighterlight">#E1F0FB</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
@@ -16,6 +17,7 @@
     <color name="black_medium">#1F1F1F</color>
     <color name="black_bold">#1B1C1E</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_white_color">#DAE4F4</color>
 
     <color name="negative_color">#810000</color>
     <color name="negative_color_dark">#570000</color>
@@ -23,6 +25,9 @@
     <color name="light_grey_color">#545659</color>
     <color name="light_green_color">#79F692</color>
     <color name="dark_green_color">#238035</color>
+
+
+    <color name="bgDarkcolor">#1c232e</color>
 
 
 

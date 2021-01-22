@@ -21,24 +21,150 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="350dp"
             android:elevation="4dp"
             app:cardCornerRadius="8dp"
             app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/bgDarkcolor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-                android:id="@+id/aaChartView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </com.google.android.material.card.MaterialCardView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+        <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+            android:id="@+id/aaChartView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/top_double_extra_margin"
+            android:layout_marginBottom="@dimen/bottom_extra_margin"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/current_value_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/full_profit"
+            android:textColor="@color/colorPrimaryLighterlight"
+            android:textSize="14sp"
+            android:layout_marginStart="@dimen/element_spacing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/current_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@{stock.totalAmount}"
+            tools:text="₹3000.60"
+            android:layout_marginTop="@dimen/line_spacing"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/current_value_head"
+            app:layout_constraintTop_toBottomOf="@+id/current_value_head" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/current_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
+            tools:text="As on 10-12-2021"
+            android:text="@{stock.todaydateMap}"
+            android:textColor="@color/colorPrimaryLighterlight"
+            android:textSize="14sp"
+            android:layout_marginBottom="@dimen/element_spacing"
+            android:layout_marginStart="@dimen/element_spacing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/aaChartView" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/current_profit_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/element_spacing"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/retun_head"
+            android:textColor="@color/light_white_color"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/current_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/line_spacing"
+            android:fontFamily="sans-serif-black"
+            tools:text="₹300"
+            android:text="@{stock.totalProfit}"
+            android:layout_marginEnd="@dimen/element_spacing"
+            android:textColor="@color/light_green_color"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/current_profit_head" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/current_unit_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/unit"
+            android:textColor="@color/colorPrimaryLighterlight"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/current_profit_head"
+            app:layout_constraintStart_toEndOf="@+id/current_value_head"
+            app:layout_constraintTop_toTopOf="@+id/current_value_head" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/current_unit_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/line_spacing"
+            android:fontFamily="sans-serif-medium"
+            tools:text="₹30.601"
+            android:text="@{stock.totalUnit}"
+            android:textColor="@color/secondaryLightColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/current_unit_head"
+            app:layout_constraintStart_toStartOf="@+id/current_unit_head"
+            app:layout_constraintTop_toBottomOf="@+id/current_value_head" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/total_invest_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/investment_head"
+            android:textColor="@color/colorPrimaryLighterlight"
+            android:textSize="14sp"
+            android:layout_marginBottom="@dimen/line_spacing"
+            app:layout_constraintBottom_toTopOf="@+id/total_invest"
+            app:layout_constraintEnd_toEndOf="@+id/total_invest" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/total_invest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/element_spacing"
+            android:fontFamily="sans-serif-black"
+            tools:text="₹4000.60"
+            android:text="@{stock.totalInvest}"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/current_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/current_date" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/selectorGroup"
             android:layout_width="match_parent"
