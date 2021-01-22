@@ -5,6 +5,7 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -62,6 +63,12 @@ class AddInvestFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
        subscribe()
+        setAdjustScreen();
+    }
+
+    private fun setAdjustScreen() {
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     private fun subscribe() {

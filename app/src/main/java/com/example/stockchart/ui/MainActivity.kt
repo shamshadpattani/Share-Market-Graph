@@ -30,11 +30,11 @@ import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.google.android.material.button.MaterialButton
 import com.wajahatkarim3.roomexplorer.RoomExplorer
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.list_my_stock.view.*
 
 
 class MainActivity : AppCompatActivity() {
-     private val updateInvest: MutableList<MyInvest> = mutableListOf()
-    private val invest: MutableList<MyInvestDB> = mutableListOf()
+
     private lateinit var mainViewModel: MainViewModel
     private lateinit var investViewModel: InvestViewModel
 
@@ -68,25 +68,22 @@ class MainActivity : AppCompatActivity() {
         }
         val onItemSwipeListener: OnItemSwipeListener = object : OnItemSwipeListener {
             override fun onItemSwipeStart(viewHolder: RecyclerView.ViewHolder, pos: Int) {
-                Log.d("TAG", "view swiped start: $pos")
-                Toast.makeText(this@MainActivity, "view swiped start: $pos", Toast.LENGTH_SHORT).show()
                 val holder = viewHolder as BaseViewHolder
             }
 
             override fun clearView(viewHolder: RecyclerView.ViewHolder, pos: Int) {
-                Log.d("TAG", "View reset: $pos")
-                Toast.makeText(this@MainActivity, "View reset: $pos", Toast.LENGTH_SHORT).show()
                 val holder = viewHolder as BaseViewHolder
-                //holder.
             }
 
             override fun onItemSwiped(viewHolder: RecyclerView.ViewHolder, pos: Int) {
                 Log.d("TAG", "View Swiped: $pos")
-                Toast.makeText(this@MainActivity, "View Swiped: $pos", Toast.LENGTH_SHORT).show()
+                val holder = viewHolder as BaseViewHolder
+                mainViewModel.deleteInvest(pos,holder)
+                Toast.makeText(this@MainActivity, "Delete Successfully", Toast.LENGTH_SHORT).show()
             }
 
             override fun onItemSwipeMoving(canvas: Canvas, viewHolder: RecyclerView.ViewHolder?, dX: Float, dY: Float, isCurrentlyActive: Boolean) {
-                canvas.drawColor(ContextCompat.getColor(this@MainActivity, R.color.light_green_color))
+                canvas.drawColor(ContextCompat.getColor(this@MainActivity, R.color.negative_color))
             }
         }
 
@@ -98,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showAddDialog() {
         val dialog = AddInvestFragment.newInstances()
-        dialog.isCancelable = true
+        dialog.isCancelable = false
         dialog.show(this.supportFragmentManager, "TAG")
     }
 
@@ -119,8 +116,6 @@ class MainActivity : AppCompatActivity() {
             showAddDialog()
         }
         initDebugTools()
-
-
     }
 
 
@@ -197,7 +192,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showTitles(data: Dataset) {
         aaChartModel.title(data.name)
-                .titleStyle(AAStyle().color("#FFFFFF").fontWeight(AAChartFontWeightType.Bold))
+                .titleStyle(AAStyle().color("#FFFFFF").fontWeight(AAChartFontWeightType.Regular))
                 .subtitle(data.description)
     }
 

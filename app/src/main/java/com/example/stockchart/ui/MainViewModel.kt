@@ -2,6 +2,7 @@ package com.example.stockchart.ui
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.stockchart.data.model.Info
 import com.example.stockchart.data.model.MyInvest
 import com.example.stockchart.data.model.MyInvestDB
@@ -174,7 +175,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    //Invest
 
+    fun deleteInvest(pos: Int, holder: BaseViewHolder) {
+        var id= myInvestDB.value?.asReversed()?.get(pos)?.id
+        viewModelScope.launch(Dispatchers.IO) {
+            stockRepo.deleteInvestData(id)
+        }
+    }
 
 
 }

@@ -27,4 +27,7 @@ abstract class InvestDao {
 
     @Query("SELECT * FROM ${EntityDescriptions.TABLE_INVEST} ")
     abstract fun getInvest(): List<MyInvestDB>
+
+    @Query("DELETE FROM ${EntityDescriptions.TABLE_INVEST} where id=:id ")
+    abstract fun delete(id:Int)
 }

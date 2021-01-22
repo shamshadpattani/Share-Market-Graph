@@ -50,4 +50,10 @@ class StockRepository (c: Application) {
     fun getsaveInvest(): List<MyInvestDB> {
         return investDb.getInvest()
     }
+
+    fun deleteInvestData(id: Int?) {
+        if (id != null) {
+         investDb.delete(id)
+        }
+    }
 }
