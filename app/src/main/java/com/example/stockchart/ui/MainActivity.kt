@@ -20,8 +20,6 @@ import com.chad.library.adapter.base.listener.OnItemSwipeListener
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.stockchart.R
 import com.example.stockchart.data.model.Dataset
-import com.example.stockchart.data.model.MyInvest
-import com.example.stockchart.data.model.MyInvestDB
 import com.example.stockchart.data.room.EntityDescriptions
 import com.example.stockchart.data.room.StockDatabase
 import com.example.stockchart.databinding.ActivityMainBinding
@@ -157,7 +155,9 @@ class MainActivity : AppCompatActivity() {
 
 
         mainViewModel.liveTodayPrice.observe(this, {
-            mainViewModel.updateInvestList()
+            if(it!=null){
+                mainViewModel.updateInvestList(it)
+            }
         })
 
         mainViewModel.myInvestListData.observe(this, {

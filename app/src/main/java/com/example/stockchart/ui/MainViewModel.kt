@@ -14,8 +14,6 @@ import com.example.stockchart.utlis.CommonUtils.dateConversionSrting
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -65,7 +63,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
        stockRepo.getPriceFromDBLive()
     }
 
-    fun updateInvestList() {
+    fun updateInvestList(todayRate: Double) {
         totalAmount.value=0.0.toString()
         totalProfit.value=0.0.toString()
         totalInvest.value=0.0.toString()
@@ -73,10 +71,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         todaydateMap.value="As On ${todaydate.value}"
         var inv:MutableList<MyInvest> = mutableListOf()
         myInvestDB.value?.map { myInv ->
-            my_price.value = String.format("%.3f", liveTodayPrice.value?.times(myInv.unit.toDouble()))
+            my_price.value = String.format("%.3f", todayRate.times(myInv.unit.toDouble()))
             price_diff.value = String.format("%.2f", myInv.invest_price.toDouble().let { my_price.value!!.toDouble().minus(it) })
 
-            totalAmount.value = my_price.value!!.toDouble().plus(totalAmount.value?.toDouble()!!).toString()
+            totalAmount.value = String.format("%.3f",my_price.value!!.toDouble().plus(totalAmount.value?.toDouble()!!))
             totalUnit.value = String.format("%.3f",totalUnit.value!!.toDouble().plus(myInv.unit.toDouble()))
             totalProfit.value = String.format("%.3f",totalProfit.value!!.toDouble().plus(price_diff.value!!.toDouble()))
             totalInvest.value=String.format("%.2f",totalInvest.value!!.toDouble().plus(myInv.invest_price.toDouble()))
@@ -118,17 +116,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         stockvalues.value= Pair(dateConversion(_date.reversed()),_price.reversed())
 
 
-        var counts = 0
-        _fundDetails.value?.dataset?.data?.map { values ->
-            counts += 1
-            var info: Info? =null
-            if (count <= _fundDetails.value!!.dataset.data.size) {
-                info = Info(values[0] as String, values[1] as Double)
-            }
-            viewModelScope.launch(Dispatchers.IO) {
-                val i = info?.let { stockRepo.saveStockDetailsdata(it) }
-            }
-        }
+
     }
 
 
@@ -151,7 +139,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 when(result) {
                     is ResultOf.Success -> {
                         _fundDetails.postValue(result.value!!)
-
+                            savetoDB()
                     }
                     is ResultOf.Loading -> _dataLoading.postValue(true)
                     is ResultOf.Error -> _dataLoading.postValue(false)
@@ -160,6 +148,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    private fun savetoDB(){
+        var counts = 0
+        _fundDetails.value?.dataset?.data?.map { values ->
+            counts += 1
+            var info: Info? =null
+            if (counts <= _fundDetails.value!!.dataset.data.size) {
+                info = Info(values[0] as String, values[1] as Double)
+            }
+            viewModelScope.launch(Dispatchers.IO) {
+                val i = info?.let { stockRepo.saveStockDetailsdata(it) }
+            }
+        }
+    }
 
     fun setvalues(text: String?, dat: List<List<Any>>) {
         when {

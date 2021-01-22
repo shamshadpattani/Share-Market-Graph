@@ -1,6 +1,7 @@
 package com.example.stockchart.ui
 
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.DraggableModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -36,5 +37,6 @@ class InvestQuickAdapter(data: MutableList<MyInvest>) : BaseQuickAdapter<MyInves
         newItems?.let { this.data.addAll(it) }
         notifyDataSetChanged()
     }
+
 
 }
