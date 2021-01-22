@@ -68,7 +68,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         totalProfit.value=0.0.toString()
         totalInvest.value=0.0.toString()
         totalUnit.value=0.0.toString()
-        todaydateMap.value="As On ${todaydate.value}"
         var inv:MutableList<MyInvest> = mutableListOf()
         myInvestDB.value?.map { myInv ->
             my_price.value = String.format("%.3f", todayRate.times(myInv.unit.toDouble()))
@@ -108,6 +107,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         percentIncValYest.value=_price[1].minus(_price[2]).toFloat()
 
         todaydate.value = dateConversionSrting(_date[0])!!
+        todaydateMap.value="As On ${todaydate.value}"
         todayprice.value="₹${_price[0]}"
         todayPriceIncr.value="₹${String.format("%.2f",_price[0].minus(_price[1]).toFloat())}"
         todayPercentage.value="${String.format("%.2f",((_price[0].minus(_price[1]).toFloat()).div(_price[1])).times(100))}%"
@@ -118,12 +118,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     }
-
-
-
-
-
-
 
 
     private val _fundDetails = MutableLiveData<Stock>()

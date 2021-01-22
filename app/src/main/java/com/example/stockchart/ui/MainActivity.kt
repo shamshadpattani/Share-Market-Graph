@@ -163,6 +163,14 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.myInvestListData.observe(this, {
             mAdapter.updateItems(it.toMutableList().asReversed())
         })
+
+        mainViewModel.totalProfit.observe(this,{profit->
+            if (profit.toDouble() < 0.0) {
+                current_profit.setTextColor(ContextCompat.getColor(this, R.color.negative_color))
+            } else {
+                current_profit.setTextColor(ContextCompat.getColor(this, R.color.dark_green_color))
+            }
+        })
     }
 
     private fun setmap(dataset: List<Double>, date: List<String>) {
