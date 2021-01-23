@@ -41,6 +41,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val totalInvest : MutableLiveData<String> = MutableLiveData()
     val totalUnit : MutableLiveData<String> = MutableLiveData()
     val totalProfit : MutableLiveData<String> = MutableLiveData()
+
+
     val totalAmount : MutableLiveData<String> = MutableLiveData()
     val todaydateMap : MutableLiveData<String> = MutableLiveData()
     val myInvestDB : LiveData<List<MyInvestDB>> = stockRepo.getsaveInvestLive()
@@ -68,9 +70,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     fun updateInvestList(todayRate: Double) {
-        totalAmount.value=0.0.toString()
-        totalProfit.value=0.0.toString()
-        totalInvest.value=0.0.toString()
+        totalAmount.value=0.toString()
+        totalProfit.value=0.toString()
+        totalProfitDouble.value=0.0
+        totalInvest.value=0.toString()
         totalUnit.value=0.0.toString()
         var inv:MutableList<MyInvest> = mutableListOf()
         myInvestDB.value?.map { myInv ->

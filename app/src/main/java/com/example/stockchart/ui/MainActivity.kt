@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             animationEnable = true
             adapterAnimation = SlideInBottomAnimation()
             isAnimationFirstOnly = false
-            setDiffCallback(InvestQuickAdapter.DiffCallback())
+         //   setDiffCallback(InvestQuickAdapter.DiffCallback())
         }
         val onItemSwipeListener: OnItemSwipeListener = object : OnItemSwipeListener {
             override fun onItemSwipeStart(viewHolder: RecyclerView.ViewHolder, pos: Int) {
@@ -201,11 +201,8 @@ class MainActivity : AppCompatActivity() {
         aaChartView.aa_drawChartWithChartModel(aaChartModel)
     }
 
-    private fun showTitles(data: Dataset) {
-        aaChartModel.title(data.name)
-                .titleStyle(AAStyle().color("#FFFFFF").fontWeight(AAChartFontWeightType.Regular))
-                .subtitle(data.description)
-    }
+
+
 
     private fun initDebugTools() {
         val isDebug: Boolean = this.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
