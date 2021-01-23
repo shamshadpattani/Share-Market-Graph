@@ -72,7 +72,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun updateInvestList(todayRate: Double) {
         totalAmount.value=0.toString()
         totalProfit.value=0.toString()
-        totalProfitDouble.value=0.0
+
         totalInvest.value=0.toString()
         totalUnit.value=0.0.toString()
         var inv:MutableList<MyInvest> = mutableListOf()
