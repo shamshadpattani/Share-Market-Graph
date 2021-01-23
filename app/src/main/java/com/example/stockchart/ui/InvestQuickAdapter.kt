@@ -49,12 +49,10 @@ class InvestQuickAdapter(data: MutableList<MyInvest>)
 
     class DiffCallback: DiffUtil.ItemCallback<MyInvest>() {
         override fun areItemsTheSame(oldItem: MyInvest, newItem: MyInvest): Boolean {
-            return oldItem.invest_price == newItem.invest_price
+            return oldItem.invest_price == newItem.invest_price && oldItem.invest_date == newItem.invest_date
         }
-
-        override fun areContentsTheSame(oldItem: MyInvest,
-                                        newItem: MyInvest): Boolean {
-            return oldItem.invest_date == newItem.invest_date && oldItem.invest_price == newItem.invest_price
+        override fun areContentsTheSame(oldItem: MyInvest, newItem: MyInvest): Boolean {
+            return false
         }
     }
 

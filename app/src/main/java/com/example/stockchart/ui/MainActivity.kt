@@ -49,10 +49,10 @@ class MainActivity : AppCompatActivity() {
         investViewModel = ViewModelProvider(this).get(InvestViewModel::class.java)
         binding.stock = mainViewModel
         binding.lifecycleOwner = this
-        observer()
+        initAdapter(mutableListOf())
         setAdjustScreen();
         init()
-        initAdapter(mutableListOf())
+        observer()
     }
 
     private fun initAdapter(myInvest:List<MyInvest>) {
@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.myInvestListData.observe(this, {
             if(it.isNotEmpty())
               mAdapter.updateItems(it.toMutableList().asReversed())
-            //mAdapter.setDiffNewData(it.toMutableList().asReversed())
+           // mAdapter.setDiffNewData(it.toMutableList().asReversed())
         })
 
         mainViewModel.totalProfit.observe(this,{profit->

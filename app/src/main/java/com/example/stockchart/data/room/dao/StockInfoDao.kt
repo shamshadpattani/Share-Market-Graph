@@ -1,5 +1,6 @@
 package com.example.stockchart.data.room.dao
 
+import android.icu.text.IDNA
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.stockchart.data.model.Info
