@@ -156,8 +156,6 @@ class MainActivity : AppCompatActivity() {
                 today_price_incr.setTextColor(ContextCompat.getColor(this, R.color.dark_green_color))
             }
         })
-
-
         mainViewModel.liveTodayPrice.observe(this, {
             if(it!=null){
                 mainViewModel.updateInvestList(it)

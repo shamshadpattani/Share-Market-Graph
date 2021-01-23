@@ -59,9 +59,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * it call stockRepo.getPriceFromDBLive()
      * [return] livedata
     **/
-    val liveTodayPrice = Transformations.switchMap(myInvestDB) {
-       stockRepo.getPriceFromDBLive()
+
+    private  val _liveTodayPrice = Transformations.switchMap(myInvestDB) {
+        stockRepo.getPriceFromDBLive()
     }
+    val liveTodayPrice: LiveData<Double> = _liveTodayPrice
+
+
 
     fun updateInvestList(todayRate: Double) {
         totalAmount.value=0.0.toString()
