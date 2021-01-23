@@ -1,6 +1,5 @@
 package com.example.stockchart.data.room.dao
 
-import android.icu.text.IDNA
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.stockchart.data.model.Info
@@ -21,7 +20,7 @@ abstract class StockInfoDao {
     }*/
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(summary: Info): Long
+    abstract fun insert(summary: MutableList<Info?>): List<Long>
 
     @Query("SELECT * FROM ${EntityDescriptions.TABLE_INFO} WHERE date = :id")
     abstract fun getPrice(id: String): Info?

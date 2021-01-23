@@ -27,7 +27,7 @@ class StockRepository (c: Application) {
         }.asFlow().flowOn(Dispatchers.IO)
     }
 
-    fun saveStockDetailsdata(info: Info): Long {
+    fun saveStockDetailsdata(info: MutableList<Info?>): List<Long> {
         val inputDb = db.insert(info)
         return inputDb
     }

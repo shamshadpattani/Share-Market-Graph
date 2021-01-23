@@ -20,6 +20,7 @@ import com.chad.library.adapter.base.listener.OnItemSwipeListener
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.stockchart.R
 import com.example.stockchart.data.model.Dataset
+import com.example.stockchart.data.model.MyInvest
 import com.example.stockchart.data.room.EntityDescriptions
 import com.example.stockchart.data.room.StockDatabase
 import com.example.stockchart.databinding.ActivityMainBinding
@@ -51,18 +52,19 @@ class MainActivity : AppCompatActivity() {
         observer()
         setAdjustScreen();
         init()
-        initAdapter()
+        initAdapter(mutableListOf())
     }
 
-    private fun initAdapter() {
+    private fun initAdapter(myInvest:List<MyInvest>) {
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.setHasFixedSize(true)
-        mAdapter = InvestQuickAdapter(mutableListOf())
+        mAdapter = InvestQuickAdapter(myInvest.toMutableList())
         recycler_view.adapter = mAdapter
         mAdapter.apply {
             animationEnable = true
             adapterAnimation = SlideInBottomAnimation()
             isAnimationFirstOnly = false
+            setDiffCallback(InvestQuickAdapter.DiffCallback())
         }
         val onItemSwipeListener: OnItemSwipeListener = object : OnItemSwipeListener {
             override fun onItemSwipeStart(viewHolder: RecyclerView.ViewHolder, pos: Int) {
@@ -128,6 +130,8 @@ class MainActivity : AppCompatActivity() {
           //  showTitles(stock.dataset)
             dat = stock.dataset.data
             mainViewModel.setData(dat, 5)
+            mainViewModel.savetoDB()
+
         })
 
         mainViewModel.stockvalues.observe(this, { values ->
@@ -161,7 +165,9 @@ class MainActivity : AppCompatActivity() {
         })
 
         mainViewModel.myInvestListData.observe(this, {
-            mAdapter.updateItems(it.toMutableList().asReversed())
+            if(it.isNotEmpty())
+              mAdapter.updateItems(it.toMutableList().asReversed())
+            //mAdapter.setDiffNewData(it.toMutableList().asReversed())
         })
 
         mainViewModel.totalProfit.observe(this,{profit->

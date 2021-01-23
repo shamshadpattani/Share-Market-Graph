@@ -11,7 +11,7 @@ data class MyInvest(
     var invest_date: String,
     var invest_price: String?,
     var unit: String,
-    var nav: Double?,
-    var my_price: Double?,
-    var price_diff:Double
+    var nav: String?,
+    var my_price: String?,
+    var price_diff:String?
 )

@@ -78,11 +78,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             totalProfit.value = String.format("%.3f",totalProfit.value!!.toDouble().plus(price_diff.value!!.toDouble()))
             totalInvest.value=String.format("%.2f",totalInvest.value!!.toDouble().plus(myInv.invest_price.toDouble()))
 
-          inv.add(MyInvest(my_price = my_price.value!!.toDouble(),
+          inv.add(MyInvest(my_price = my_price.value!!,
                     invest_price = myInv.invest_price,
                     invest_date = myInv.invest_date,
-                    unit = myInv.unit, nav = myInv.nav,
-                    price_diff = price_diff.value?.toDouble()!!))
+                    unit = myInv.unit, nav = myInv.nav.toString(),
+                    price_diff = price_diff.value))
         }
         _myInvestListData.postValue(inv)
     }
@@ -115,8 +115,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         stockvalues.value= Pair(dateConversion(_date.reversed()),_price.reversed())
 
-
-
     }
 
 
@@ -133,7 +131,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 when(result) {
                     is ResultOf.Success -> {
                         _fundDetails.postValue(result.value!!)
-                            savetoDB()
                     }
                     is ResultOf.Loading -> _dataLoading.postValue(true)
                     is ResultOf.Error -> _dataLoading.postValue(false)
@@ -142,16 +139,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private fun savetoDB(){
+    fun savetoDB(){
         var counts = 0
+        var info: MutableList<Info?> = mutableListOf()
         _fundDetails.value?.dataset?.data?.map { values ->
             counts += 1
-            var info: Info? =null
             if (counts <= _fundDetails.value!!.dataset.data.size) {
-                info = Info(values[0] as String, values[1] as Double)
+                info.add(Info(values[0] as String, values[1] as Double))
             }
-            viewModelScope.launch(Dispatchers.IO) {
-                val i = info?.let { stockRepo.saveStockDetailsdata(it) }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            if(info.size!=0){
+                val i = info.let { stockRepo.saveStockDetailsdata(it) }
             }
         }
     }
