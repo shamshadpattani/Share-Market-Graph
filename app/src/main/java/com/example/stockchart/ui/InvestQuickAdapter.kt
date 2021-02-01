@@ -11,6 +11,9 @@ import com.example.stockchart.R
 import com.example.stockchart.data.model.MyInvest
 import com.example.stockchart.data.model.MyInvestDB
 import com.example.stockchart.databinding.ListMyStockBinding
+import java.lang.Math.abs
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 
 class InvestQuickAdapter(data: MutableList<MyInvest>)
     : BaseQuickAdapter<MyInvest, BaseDataBindingHolder<ListMyStockBinding>>(R.layout.list_my_stock, data) , DraggableModule {
@@ -26,6 +29,13 @@ class InvestQuickAdapter(data: MutableList<MyInvest>)
             dateText.text=item.invest_date
             unitCount.text=item.unit
             navPrice.text="₹${item.nav}"
+            val dates = SimpleDateFormat("yyyy-MM-dd")
+             val date=dates.parse(item.invest_date)
+            val date2=dates.parse(LocalDate.now().toString())
+            val difference: Long = abs(date2.time - date.time)
+            val differenceDates = difference / (24 * 60 * 60 * 1000)
+            val dayDifference = differenceDates.toString()
+            daysDiff.text="$dayDifference Days"
         }
         if(item.invest_price?.toDouble()!! > item.my_price?.toDouble()!!){
             (holder.getView(R.id.new_price) as TextView).setTextColor(context.getColor(R.color.negative_color))

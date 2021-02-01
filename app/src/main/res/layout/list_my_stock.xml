@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View"/>
         <variable
@@ -7,16 +9,13 @@
             type="com.example.stockchart.data.model.MyInvest"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView2"
         android:layout_width="0dp"
-        android:layout_height="110dp"
+        android:layout_height="130dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="@dimen/element_spacing"
         android:layout_marginEnd="@dimen/element_spacing"
@@ -53,8 +52,8 @@
                 android:id="@+id/invest_amount_head"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:layout_marginStart="@dimen/element_spacing"
+                android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/investment_head"
                 android:textColor="@color/white"
@@ -95,8 +94,8 @@
                 android:layout_marginTop="4dp"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textColor="@color/cardview_light_background"
-                android:transitionName="@{invest.unit}"
                 android:textSize="12sp"
+                android:transitionName="@{invest.unit}"
                 app:layout_constraintEnd_toEndOf="@+id/unit_amount_head"
                 app:layout_constraintStart_toStartOf="@+id/unit_amount_head"
                 app:layout_constraintTop_toBottomOf="@+id/invest_amount_head"
@@ -107,10 +106,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="@dimen/element_spacing"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/nav_text_head"
                 android:textColor="@color/white"
-                android:layout_marginEnd="@dimen/element_spacing"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -131,10 +130,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
-                android:transitionName="@{invest.invest_date}"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/element_spacing"
+                android:transitionName="@{invest.invest_date}"
                 app:layout_constraintStart_toStartOf="@+id/invest_price"
                 app:layout_constraintTop_toBottomOf="@+id/view2"
                 tools:text="10-12-2020" />
@@ -147,9 +146,8 @@
                 android:textColor="@color/light_green_color"
                 android:textSize="12sp"
                 android:transitionName="@{invest.my_price}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/nav_price"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
+                app:layout_constraintTop_toTopOf="@+id/price_diff"
                 tools:text="₹100.60" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -160,11 +158,23 @@
                 android:textColor="@color/light_green_color"
                 android:textSize="12sp"
                 android:transitionName="@{invest.price_diff}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/unit_count"
                 app:layout_constraintStart_toStartOf="@+id/unit_count"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
+                app:layout_constraintTop_toTopOf="@+id/date_text"
                 tools:text="₹100.60" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/daysDiff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/colorPrimaryLighter"
+                android:textSize="14sp"
+                android:layout_marginTop="@dimen/element_spacing"
+                android:transitionName="@{invest.invest_date}"
+                app:layout_constraintEnd_toEndOf="@+id/new_price"
+                app:layout_constraintTop_toBottomOf="@+id/new_price"
+                tools:text="365 Days" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
